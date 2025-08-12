@@ -34,13 +34,18 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="container py-16">
+        <div className="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-4 gap-8">
           {/* Company Info */}
-          <div className="lg:col-span-1">
+          <div className="lg-col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="bg-gradient-to-br from-primary-600 to-safari-500 p-2 rounded-lg">
-                <svg className="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <div className="bg-gradient-primary p-2 rounded-lg">
+                <svg 
+                  style={{ height: '32px', width: '32px' }} 
+                  className="text-white" 
+                  fill="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z" />
                   <path d="M12 7L8 12h3v5h2v-5h3l-4-5z" fill="white" />
                 </svg>
@@ -60,19 +65,19 @@ const Footer = () => {
             {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <MapPinIcon className="h-5 w-5 text-safari-500" />
+                <MapPinIcon style={{ height: '20px', width: '20px' }} className="text-safari-500" />
                 <span className="text-gray-300">Nairobi, Kenya</span>
               </div>
               <div className="flex items-center space-x-3">
-                <PhoneIcon className="h-5 w-5 text-safari-500" />
+                <PhoneIcon style={{ height: '20px', width: '20px' }} className="text-safari-500" />
                 <span className="text-gray-300">+254 700 123 456</span>
               </div>
               <div className="flex items-center space-x-3">
-                <EnvelopeIcon className="h-5 w-5 text-safari-500" />
+                <EnvelopeIcon style={{ height: '20px', width: '20px' }} className="text-safari-500" />
                 <span className="text-gray-300">info@richmantours.co.ke</span>
               </div>
               <div className="flex items-center space-x-3">
-                <GlobeAltIcon className="h-5 w-5 text-safari-500" />
+                <GlobeAltIcon style={{ height: '20px', width: '20px' }} className="text-safari-500" />
                 <span className="text-gray-300">www.richmantours.co.ke</span>
               </div>
             </div>
@@ -86,7 +91,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-gray-300 hover:text-safari-400 transition-colors"
+                    className="text-gray-300 hover-text-safari-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -103,7 +108,7 @@ const Footer = () => {
                 <li key={category.name}>
                   <Link
                     to={category.href}
-                    className="text-gray-300 hover:text-safari-400 transition-colors"
+                    className="text-gray-300 hover-text-safari-400 transition-colors"
                   >
                     {category.name}
                   </Link>
@@ -130,10 +135,14 @@ const Footer = () => {
                   <a
                     key={social.name}
                     href={social.href}
-                    className="text-gray-400 hover:text-safari-400 transition-colors"
+                    className="text-gray-400 hover-text-safari-400 transition-colors"
                     aria-label={social.name}
                   >
-                    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <svg 
+                      style={{ height: '24px', width: '24px' }} 
+                      fill="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
                       <path d={social.icon} />
                     </svg>
                   </a>
@@ -146,19 +155,19 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-gray-800">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="container py-6">
+          <div className="flex flex-col md-flex justify-between items-center">
             <p className="text-gray-400 text-sm">
               © {new Date().getFullYear()} Richman Tours & Travel. All rights reserved.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link to="/privacy" className="text-gray-400 hover:text-safari-400 text-sm transition-colors">
+            <div className="flex space-x-6 mt-4" style={{ marginTop: '0' }}>
+              <Link to="/privacy" className="text-gray-400 hover-text-safari-400 text-sm transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-gray-400 hover:text-safari-400 text-sm transition-colors">
+              <Link to="/terms" className="text-gray-400 hover-text-safari-400 text-sm transition-colors">
                 Terms of Service
               </Link>
-              <Link to="/sitemap" className="text-gray-400 hover:text-safari-400 text-sm transition-colors">
+              <Link to="/sitemap" className="text-gray-400 hover-text-safari-400 text-sm transition-colors">
                 Sitemap
               </Link>
             </div>

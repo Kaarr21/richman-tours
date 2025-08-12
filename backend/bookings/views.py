@@ -64,6 +64,78 @@ class BookingListCreateView(generics.ListCreateAPIView):
                 subject=subject,
                 message=message,
                 from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[booking.customer.email],
+                fail_silently=True,
+            )
+        except Exception:
+            pass  # Handle email sending gracefully
+
+class BookingDetailView(generics.RetrieveAPIView):
+    """Retrieve booking details"""
+    serializer_class = BookingDetailSerializer
+    permission_classes = [AllowAny]
+    lookup_field = 'booking_reference'
+    
+    def get_queryset(self):
+        return Booking.objects.select_related('tour', 'customer').prefetch_related('guests', 'payments')
+
+class CustomerBookingsView(generics.ListAPIView):
+    """List bookings for a specific customer by email"""
+    serializer_class = BookingListSerializer
+    permission_classes = [AllowAny]
+    
+    def get_queryset(self):
+        email = self.request.query_params.get('email')
+        if email:
+            return Booking.objects.filter(
+                customer__email=email
+            ).select_related('tour', 'customer').order_by('-created_at')
+        return Booking.objects.none()
+
+class InquiryListCreateView(generics.ListCreateAPIView):
+    """List and create inquiries"""
+    permission_classes = [AllowAny]
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return InquiryCreateSerializer
+        return InquirySerializer
+    
+    def get_queryset(self):
+        # Only return inquiries if user is staff (for admin)
+        if self.request.user.is_staff:
+            return Inquiry.objects.all().select_related('tour')
+        return Inquiry.objects.none()
+    
+    def perform_create(self, serializer):
+        inquiry = serializer.save()
+        self.send_inquiry_notification_email(inquiry)
+    
+    def send_inquiry_notification_email(self, inquiry):
+        """Send inquiry notification to admin"""
+        subject = f"New Inquiry: {inquiry.subject}"
+        message = f"""
+        New inquiry received from {inquiry.name}
+        
+        Details:
+        - Name: {inquiry.name}
+        - Email: {inquiry.email}
+        - Phone: {inquiry.phone_number}
+        - Type: {inquiry.get_inquiry_type_display()}
+        - Subject: {inquiry.subject}
+        - Message: {inquiry.message}
+        
+        Tour: {inquiry.tour.title if inquiry.tour else 'N/A'}
+        Preferred Travel Dates: {inquiry.preferred_travel_dates or 'N/A'}
+        Number of Travelers: {inquiry.number_of_travelers or 'N/A'}
+        Budget Range: {inquiry.budget_range or 'N/A'}
+        """
+        
+        try:
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[settings.DEFAULT_FROM_EMAIL],  # Send to admin
                 fail_silently=True,
             )
@@ -215,77 +287,4 @@ def booking_stats(request):
         'completed_bookings': completed_bookings,
         'total_revenue': float(total_revenue),
         'this_month_bookings': this_month_bookings,
-    })DEFAULT_FROM_EMAIL,
-                recipient_list=[booking.customer.email],
-                fail_silently=True,
-            )
-        except Exception:
-            pass  # Handle email sending gracefully
-
-class BookingDetailView(generics.RetrieveAPIView):
-    """Retrieve booking details"""
-    serializer_class = BookingDetailSerializer
-    permission_classes = [AllowAny]
-    lookup_field = 'booking_reference'
-    
-    def get_queryset(self):
-        return Booking.objects.select_related('tour', 'customer').prefetch_related('guests', 'payments')
-
-class CustomerBookingsView(generics.ListAPIView):
-    """List bookings for a specific customer by email"""
-    serializer_class = BookingListSerializer
-    permission_classes = [AllowAny]
-    
-    def get_queryset(self):
-        email = self.request.query_params.get('email')
-        if email:
-            return Booking.objects.filter(
-                customer__email=email
-            ).select_related('tour', 'customer').order_by('-created_at')
-        return Booking.objects.none()
-
-class InquiryListCreateView(generics.ListCreateAPIView):
-    """List and create inquiries"""
-    permission_classes = [AllowAny]
-    
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return InquiryCreateSerializer
-        return InquirySerializer
-    
-    def get_queryset(self):
-        # Only return inquiries if user is staff (for admin)
-        if self.request.user.is_staff:
-            return Inquiry.objects.all().select_related('tour')
-        return Inquiry.objects.none()
-    
-    def perform_create(self, serializer):
-        inquiry = serializer.save()
-        self.send_inquiry_notification_email(inquiry)
-    
-    def send_inquiry_notification_email(self, inquiry):
-        """Send inquiry notification to admin"""
-        subject = f"New Inquiry: {inquiry.subject}"
-        message = f"""
-        New inquiry received from {inquiry.name}
-        
-        Details:
-        - Name: {inquiry.name}
-        - Email: {inquiry.email}
-        - Phone: {inquiry.phone_number}
-        - Type: {inquiry.get_inquiry_type_display()}
-        - Subject: {inquiry.subject}
-        - Message: {inquiry.message}
-        
-        Tour: {inquiry.tour.title if inquiry.tour else 'N/A'}
-        Preferred Travel Dates: {inquiry.preferred_travel_dates or 'N/A'}
-        Number of Travelers: {inquiry.number_of_travelers or 'N/A'}
-        Budget Range: {inquiry.budget_range or 'N/A'}
-        """
-        
-        try:
-            send_mail(
-                subject=subject,
-                message=message,
-                from_email=settings.
-                
+    })

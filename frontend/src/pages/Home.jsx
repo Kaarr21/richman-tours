@@ -1,7 +1,6 @@
 // src/pages/Home.jsx
-import React, {useEffect }from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-//import { motion } from 'framer-motion'
 import { 
   StarIcon,
   MapPinIcon,
@@ -13,10 +12,10 @@ import {
   CameraIcon
 } from '@heroicons/react/24/outline'
 import { useTour } from '../contexts/TourContext'
-import TourCard from '../components/Tours/TourCard'
-import NewsletterSignup from '../components/Common/NewsletterSignup'
-import LoadingSpinner from '../components/Common/LoadingSpinner'
-//import { formatCurrency } from '../services/api'
+import TourCard from "../components/Tours/TourCard";
+import NewsletterSignup from "../components/Common/NewsletterSignup";
+import LoadingSpinner from "../components/Common/LoadingSpinner";
+
 
 const Home = () => {
   const { featuredTours, loading } = useTour()
@@ -76,12 +75,7 @@ const Home = () => {
   ]
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="min-h-screen"
-    >
+    <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
@@ -95,35 +89,20 @@ const Home = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-          <motion.h1
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-5xl md:text-7xl font-bold font-heading mb-6"
-          >
+        <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto animate-fade-in-up">
+          <h1 className="text-5xl md:text-7xl font-bold font-heading mb-6">
             Discover
             <span className="bg-gradient-to-r from-accent-400 to-safari-400 bg-clip-text text-transparent">
               {' '}Kenya's{' '}
             </span>
             Magic
-          </motion.h1>
+          </h1>
           
-          <motion.p
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto"
-          >
+          <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
             Experience the best of Kenya with Richman Tours & Travel. From thrilling safaris to cultural adventures, we make your journey unforgettable.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/tours"
               className="bg-gradient-to-r from-primary-600 to-safari-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
@@ -136,22 +115,18 @@ const Home = () => {
             >
               Contact Us
             </Link>
-          </motion.div>
+          </div>
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
-        >
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce-gentle">
           <div className="flex flex-col items-center">
             <span className="text-sm mb-2">Scroll to explore</span>
             <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
               <div className="w-1 h-3 bg-white rounded-full mt-2"></div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Stats Section */}
@@ -159,18 +134,15 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <motion.div
+              <div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center"
+                className="text-center animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <stat.icon className="h-12 w-12 text-primary-600 mx-auto mb-4" />
                 <h3 className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</h3>
                 <p className="text-gray-600">{stat.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -179,85 +151,65 @@ const Home = () => {
       {/* Featured Tours Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl font-bold font-heading text-gray-900 mb-4">
               Featured Tours
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Discover our most popular tours and experiences that showcase the best of Kenya
             </p>
-          </motion.div>
+          </div>
 
           {loading ? (
             <LoadingSpinner />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredTours.slice(0, 6).map((tour, index) => (
-                <motion.div
+              {featuredTours?.slice(0, 6).map((tour, index) => (
+                <div
                   key={tour.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  className="animate-fade-in"
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <TourCard tour={tour} />
-                </motion.div>
+                </div>
               ))}
             </div>
           )}
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
+          <div className="text-center mt-12 animate-fade-in">
             <Link
               to="/tours"
               className="inline-block bg-gradient-to-r from-primary-600 to-safari-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
             >
               View All Tours
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Features Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl font-bold font-heading text-gray-900 mb-4">
               Why Choose Richman Tours?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               We provide exceptional service and unforgettable experiences across Kenya
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <motion.div
+              <div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300"
+                className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300 animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <feature.icon className="h-16 w-16 text-primary-600 mx-auto mb-6" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -266,29 +218,21 @@ const Home = () => {
       {/* Testimonials Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl font-bold font-heading text-gray-900 mb-4">
               What Our Travelers Say
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Don't just take our word for it - hear from our satisfied customers
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <motion.div
+              <div
                 key={testimonial.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white p-6 rounded-lg shadow-md"
+                className="bg-white p-6 rounded-lg shadow-md animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
@@ -301,7 +245,7 @@ const Home = () => {
                   <p className="text-sm text-gray-500">{testimonial.location}</p>
                   <p className="text-sm text-primary-600">{testimonial.tour}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -310,11 +254,7 @@ const Home = () => {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-primary-600 to-safari-600">
         <div className="container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
+          <div className="animate-fade-in">
             <h2 className="text-4xl font-bold text-white mb-6">
               Ready for Your Next Adventure?
             </h2>
@@ -335,13 +275,13 @@ const Home = () => {
                 Get Custom Quote
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Newsletter Section */}
       <NewsletterSignup />
-    </motion.div>
+    </div>
   )
 }
 

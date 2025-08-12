@@ -41,17 +41,24 @@ export const TourProvider = ({ children }) => {
   const fetchInitialData = async () => {
     try {
       setLoading(true)
+      setError(null)
+      
       const [categoriesRes, destinationsRes, featuredRes] = await Promise.all([
         tourAPI.getCategories(),
         tourAPI.getDestinations(),
         tourAPI.getFeaturedTours()
       ])
       
-      setCategories(categoriesRes.data)
-      setDestinations(destinationsRes.data)
-      setFeaturedTours(featuredRes.data)
+      setCategories(Array.isArray(categoriesRes.data) ? categoriesRes.data : [])
+      setDestinations(Array.isArray(destinationsRes.data) ? destinationsRes.data : [])
+      setFeaturedTours(Array.isArray(featuredRes.data) ? featuredRes.data : [])
     } catch (err) {
+      console.error('Error fetching initial data:', err)
       setError(err.response?.data?.message || 'Failed to fetch data')
+      // Set empty arrays as fallback
+      setCategories([])
+      setDestinations([])
+      setFeaturedTours([])
     } finally {
       setLoading(false)
     }
@@ -60,10 +67,15 @@ export const TourProvider = ({ children }) => {
   const fetchTours = async () => {
     try {
       setLoading(true)
+      setError(null)
+      
       const response = await tourAPI.getTours(filters)
-      setTours(response.data.results || response.data)
+      const toursData = response.data.results || response.data || []
+      setTours(Array.isArray(toursData) ? toursData : [])
     } catch (err) {
+      console.error('Error fetching tours:', err)
       setError(err.response?.data?.message || 'Failed to fetch tours')
+      setTours([])
     } finally {
       setLoading(false)
     }
@@ -81,10 +93,15 @@ export const TourProvider = ({ children }) => {
   const searchTours = async (query) => {
     try {
       setLoading(true)
+      setError(null)
+      
       const response = await tourAPI.searchTours(query)
-      setTours(response.data.results)
+      const searchResults = response.data.results || response.data || []
+      setTours(Array.isArray(searchResults) ? searchResults : [])
     } catch (err) {
+      console.error('Error searching tours:', err)
       setError(err.response?.data?.message || 'Search failed')
+      setTours([])
     } finally {
       setLoading(false)
     }
@@ -126,3 +143,5 @@ export const TourProvider = ({ children }) => {
     </TourContext.Provider>
   )
 }
+
+export default TourContext

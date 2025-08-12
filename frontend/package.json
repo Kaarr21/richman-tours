@@ -6,17 +6,20 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
+    "lint:check": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,json,css,md}",
+    "format:check": "prettier --check src/**/*.{js,jsx,ts,tsx,json,css,md}"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.2.0",
+    "axios": "^1.6.2",
+    "framer-motion": "^10.18.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.1",
-    "axios": "^1.6.2",
-    "@heroicons/react": "^2.0.18",
-    "framer-motion": "^10.16.16",
-    "@headlessui/react": "^1.7.17"
+    "react-router-dom": "^6.20.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

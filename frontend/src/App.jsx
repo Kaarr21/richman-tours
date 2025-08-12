@@ -1,7 +1,6 @@
 // src/App.jsx
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-//import { motion, AnimatePresence } from 'framer-motion'
 
 // Components
 import Navbar from './components/Layout/Navbar'
@@ -31,20 +30,18 @@ function App() {
         <Router>
           <div className="min-h-screen bg-white">
             <Navbar />
-            
-            <AnimatePresence mode="wait">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/tours" element={<Tours />} />
-                <Route path="/tours/:slug" element={<TourDetail />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/book/:tourSlug" element={<Booking />} />
-                <Route path="/booking/success/:bookingReference" element={<BookingSuccess />} />
-                <Route path="/booking/check" element={<BookingCheck />} />
-              </Routes>
-            </AnimatePresence>
-            
+
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/tours" element={<Tours />} />
+              <Route path="/tours/:slug" element={<TourDetail />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/book/:tourSlug" element={<Booking />} />
+              <Route path="/booking/success/:bookingReference" element={<BookingSuccess />} />
+              <Route path="/booking/check" element={<BookingCheck />} />
+            </Routes>
+
             <Footer />
           </div>
         </Router>

@@ -1,0 +1,2311 @@
+Watching for file changes with StatReloader
+/home/karoki/richman-tours/backend/bookings/views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Internal Server Error: /api/tours/destinations/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+Internal Server Error: /api/tours/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+Internal Server Error: /api/tours/featured/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+Internal Server Error: /api/tours/categories/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+Internal Server Error: /api/tours/destinations/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+Internal Server Error: /api/tours/categories/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+Internal Server Error: /api/tours/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+Internal Server Error: /api/tours/featured/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+Internal Server Error: /api/tours/categories/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+Internal Server Error: /api/tours/featured/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+Internal Server Error: /api/tours/destinations/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+Internal Server Error: /api/tours/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+Internal Server Error: /api/tours/categories/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+Internal Server Error: /api/tours/featured/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+Internal Server Error: /api/tours/destinations/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+Internal Server Error: /api/tours/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+Internal Server Error: /api/tours/destinations/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+Internal Server Error: /api/tours/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+Internal Server Error: /api/tours/categories/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+Internal Server Error: /api/tours/featured/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+Internal Server Error: /api/tours/destinations/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+Internal Server Error: /api/tours/featured/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+Internal Server Error: /api/tours/categories/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+Internal Server Error: /api/tours/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+Watching for file changes with StatReloader
+Internal Server Error: /api/tours/destinations/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+Internal Server Error: /api/tours/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+Internal Server Error: /api/tours/featured/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+Internal Server Error: /api/tours/categories/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+Internal Server Error: /api/tours/destinations/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_destination" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_destination"
+                                          ^
+
+Internal Server Error: /api/tours/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_tour" WHERE "tours_...
+                                          ^
+
+Internal Server Error: /api/tours/categories/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_category" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "tours_category"
+                                          ^
+
+Internal Server Error: /api/tours/featured/
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedTable: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 199, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/generics.py", line 171, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/rest_framework/pagination.py", line 204, in paginate_queryset
+    self.page = paginator.page(page_number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 72, in page
+    number = self.validate_number(number)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 53, in validate_number
+    if number > self.num_pages:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 99, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/utils/functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/core/paginator.py", line 93, in count
+    return c()
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/query.py", line 608, in count
+    return self.query.get_count(using=self.db)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 568, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/query.py", line 554, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/models/sql/compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/karoki/richman-tours/backend/venv/lib/python3.8/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: relation "tours_tour" does not exist
+LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
+                                                             ^
+
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
