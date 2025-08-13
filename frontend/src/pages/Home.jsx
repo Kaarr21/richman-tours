@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { 
   StarIcon,
@@ -12,19 +12,25 @@ import {
   CameraIcon
 } from '@heroicons/react/24/outline'
 import { useTour } from '../contexts/TourContext'
-import TourCard from "../components/Tours/TourCard";
-import NewsletterSignup from "../components/Common/NewsletterSignup";
-import LoadingSpinner from "../components/Common/LoadingSpinner";
-
+import DestinationCard from '../components/Destinations/DestinationCard'
+import DestinationModal from '../components/Destinations/DestinationModal'
+import NewsletterSignup from "../components/Common/NewsletterSignup"
+import LoadingSpinner from "../components/Common/LoadingSpinner"
 
 const Home = () => {
-  const { featuredTours, loading } = useTour()
+  const { destinations, loading } = useTour()
+  const [selectedDestination, setSelectedDestination] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Get featured destinations (you can add is_featured field to destinations or just take first 6)
+  const featuredDestinations = destinations?.filter(dest => dest.is_featured).slice(0, 6) || 
+                              destinations?.slice(0, 6) || []
 
   const stats = [
     { label: 'Happy Travelers', value: '2000+', icon: UsersIcon },
-    { label: 'Tours Completed', value: '500+', icon: MapPinIcon },
+    { label: 'Destinations Visited', value: '50+', icon: MapPinIcon },
     { label: 'Years Experience', value: '10+', icon: ClockIcon },
-    { label: 'Destinations', value: '50+', icon: TruckIcon },
+    { label: 'Counties Explored', value: '25+', icon: TruckIcon },
   ]
 
   const features = [
@@ -55,24 +61,34 @@ const Home = () => {
       name: 'Sarah Johnson',
       location: 'Nairobi',
       rating: 5,
-      comment: 'Amazing experience with Richman Tours! Richard was an excellent guide and the safari was unforgettable.',
-      tour: 'Maasai Mara Safari'
+      comment: 'Amazing experience with Richman Tours! Richard was an excellent guide and showed us hidden gems across Kenya.',
+      destination: 'Maasai Mara'
     },
     {
       name: 'Michael Smith',
       location: 'Mombasa',
       rating: 5,
-      comment: 'Professional service and great value for money. Highly recommend for anyone visiting Kenya.',
-      tour: 'Mount Kenya Adventure'
+      comment: 'Professional service and great local knowledge. Richard knows the best spots and their stories.',
+      destination: 'Mount Kenya'
     },
     {
       name: 'Amina Hassan',
       location: 'Kisumu',
       rating: 5,
-      comment: 'The cultural tour was eye-opening and well-organized. Richard knows Kenya like the back of his hand.',
-      tour: 'Cultural Heritage Tour'
+      comment: 'The destinations Richard took us to were breathtaking. Each place had its own unique beauty and story.',
+      destination: 'Lake Nakuru'
     }
   ]
+
+  const handleDestinationClick = (destination) => {
+    setSelectedDestination(destination)
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setSelectedDestination(null)
+  }
 
   return (
     <div className="min-h-screen">
@@ -95,25 +111,25 @@ const Home = () => {
             <span className="bg-gradient-to-r from-accent-400 to-safari-400 bg-clip-text text-transparent">
               {' '}Kenya's{' '}
             </span>
-            Magic
+            Hidden Gems
           </h1>
           
           <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
-            Experience the best of Kenya with Richman Tours & Travel. From thrilling safaris to cultural adventures, we make your journey unforgettable.
+            Explore the incredible destinations Richard has discovered across Kenya. From pristine wilderness to cultural treasures, experience the best of our beautiful country.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/tours"
+              to="/destinations"
               className="bg-gradient-to-r from-primary-600 to-safari-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
             >
-              Explore Tours
+              Explore Destinations
             </Link>
             <Link
               to="/contact"
               className="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300"
             >
-              Contact Us
+              Contact Richard
             </Link>
           </div>
         </div>
@@ -148,15 +164,15 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Tours Section */}
+      {/* Featured Destinations Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl font-bold font-heading text-gray-900 mb-4">
-              Featured Tours
+              Places Richard Has Taken Travelers
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover our most popular tours and experiences that showcase the best of Kenya
+              Discover the amazing destinations Richard has explored with previous guests. Each location has been personally visited and comes with unique stories and experiences.
             </p>
           </div>
 
@@ -164,13 +180,16 @@ const Home = () => {
             <LoadingSpinner />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredTours?.slice(0, 6).map((tour, index) => (
+              {featuredDestinations.map((destination, index) => (
                 <div
-                  key={tour.id}
+                  key={destination.id}
                   className="animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <TourCard tour={tour} />
+                  <DestinationCard 
+                    destination={destination} 
+                    onClick={handleDestinationClick}
+                  />
                 </div>
               ))}
             </div>
@@ -178,10 +197,10 @@ const Home = () => {
 
           <div className="text-center mt-12 animate-fade-in">
             <Link
-              to="/tours"
+              to="/destinations"
               className="inline-block bg-gradient-to-r from-primary-600 to-safari-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
             >
-              View All Tours
+              View All Destinations
             </Link>
           </div>
         </div>
@@ -192,10 +211,10 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl font-bold font-heading text-gray-900 mb-4">
-              Why Choose Richman Tours?
+              Why Travel with Richard?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              We provide exceptional service and unforgettable experiences across Kenya
+              Local expertise, personalized service, and unforgettable experiences across Kenya
             </p>
           </div>
 
@@ -220,10 +239,10 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl font-bold font-heading text-gray-900 mb-4">
-              What Our Travelers Say
+              What Travelers Say About Richard
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Don't just take our word for it - hear from our satisfied customers
+              Hear from guests who have explored Kenya's destinations with Richard as their guide
             </p>
           </div>
 
@@ -243,7 +262,7 @@ const Home = () => {
                 <div>
                   <p className="font-semibold text-gray-900">{testimonial.name}</p>
                   <p className="text-sm text-gray-500">{testimonial.location}</p>
-                  <p className="text-sm text-primary-600">{testimonial.tour}</p>
+                  <p className="text-sm text-primary-600">Visited {testimonial.destination}</p>
                 </div>
               </div>
             ))}
@@ -256,23 +275,24 @@ const Home = () => {
         <div className="container mx-auto px-4 text-center">
           <div className="animate-fade-in">
             <h2 className="text-4xl font-bold text-white mb-6">
-              Ready for Your Next Adventure?
+              Ready to Explore Kenya with Richard?
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Let us help you create memories that will last a lifetime. Contact us today to plan your perfect Kenyan adventure.
+              Let Richard show you the hidden gems and incredible destinations across Kenya. 
+              Each journey is personalized to create memories that will last a lifetime.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/tours"
+                to="/destinations"
                 className="bg-white text-primary-600 px-8 py-3 rounded-full font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
               >
-                Browse Tours
+                Browse Destinations
               </Link>
               <Link
                 to="/contact"
                 className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-primary-600 transition-all duration-300"
               >
-                Get Custom Quote
+                Plan Your Journey
               </Link>
             </div>
           </div>
@@ -281,6 +301,13 @@ const Home = () => {
 
       {/* Newsletter Section */}
       <NewsletterSignup />
+
+      {/* Destination Modal */}
+      <DestinationModal 
+        destination={selectedDestination}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </div>
   )
 }

@@ -2309,3 +2309,4 @@ LINE 1: ...(*) FROM (SELECT "tours_tour"."id" AS "col1" FROM "tours_tou...
 
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader

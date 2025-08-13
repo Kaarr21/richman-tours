@@ -30,8 +30,8 @@ const Navbar = () => {
 
   const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'Tours', href: '/tours' },
-    { name: 'About', href: '/about' },
+    { name: 'Destinations', href: '/destinations' },
+    { name: 'About Richard', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ]
 
@@ -55,9 +55,6 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <Link to="/booking/check" className="hover-text-accent-300 transition-colors">
-              Check Booking
-            </Link>
             <span>•</span>
             <a href="mailto:info@richmantours.co.ke" className="hover-text-accent-300 transition-colors">
               info@richmantours.co.ke
@@ -107,10 +104,10 @@ const Navbar = () => {
               
               {/* CTA Button */}
               <Link
-                to="/tours"
+                to="/contact"
                 className="btn btn-primary px-6 py-2 rounded-full hover-translate-y"
               >
-                Book Now
+                Plan Trip
               </Link>
             </div>
 
@@ -148,19 +145,11 @@ const Navbar = () => {
                 </Link>
               ))}
               <Link
-                to="/tours"
+                to="/contact"
                 className="block bg-gradient-primary text-white text-center px-4 py-3 rounded-lg font-medium"
               >
-                Book Now
+                Plan Trip
               </Link>
-              <div className="pt-4 border-t border-gray-200">
-                <Link
-                  to="/booking/check"
-                  className="block text-gray-600 hover-text-primary-600 py-2"
-                >
-                  Check Booking Status
-                </Link>
-              </div>
             </div>
           </div>
         )}
