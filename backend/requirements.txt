@@ -1,38 +1,9 @@
-Django==4.2.7
-djangorestframework==3.14.0
-django-cors-headers==4.3.1
-psycopg2-binary==2.9.9
-Pillow==10.1.0
+asgiref==3.8.1
+backports.zoneinfo==0.2.1
+Django==4.2.23
+django-cors-headers==4.4.0
+djangorestframework==3.15.2
+pillow==10.4.0
 python-decouple==3.8
-dj-database-url==2.1.0
-whitenoise==6.6.0
-django-filter==23.4
-djangorestframework-simplejwt==5.3.0
-
-# Django and core dependencies
-Django>=4.2.0,<5.0
-djangorestframework>=3.14.0
-django-cors-headers>=4.0.0
-python-decouple>=3.8
-dj-database-url>=2.0.0
-
-# Database
-psycopg2-binary>=2.9.0
-
-# Authentication
-djangorestframework-simplejwt>=5.2.0
-
-# Filtering and search
-django-filter>=23.0
-
-# Image processing
-Pillow>=10.0.0
-
-# Static files
-whitenoise>=6.5.0
-
-# HTTP requests (for management commands)
-requests>=2.31.0
-
-# Development and testing
-django-extensions>=3.2.0
+sqlparse==0.5.3
+typing_extensions==4.13.2

@@ -1,27 +1,15 @@
-# backend/tours/urls.py
-"""
-URL patterns for Tours app API endpoints.
-"""
-from django.urls import path
-from .views import (
-    CategoryListView, DestinationListView, TourListView, FeaturedToursView,
-    TourDetailView, TourReviewsView, tour_search, tour_stats
-)
+# tours/urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from . import views
 
-app_name = 'tours'
+router = DefaultRouter()
+router.register(r'tours', views.TourViewSet)
+router.register(r'gallery', views.GalleryImageViewSet)
+router.register(r'contacts', views.ContactViewSet)
+router.register(r'testimonials', views.TestimonialViewSet)
 
 urlpatterns = [
-    # Categories
-    path('categories/', CategoryListView.as_view(), name='category-list'),
-    
-    # Destinations
-    path('destinations/', DestinationListView.as_view(), name='destination-list'),
-    
-    # Tours
-    path('', TourListView.as_view(), name='tour-list'),
-    path('featured/', FeaturedToursView.as_view(), name='featured-tours'),
-    path('search/', tour_search, name='tour-search'),
-    path('stats/', tour_stats, name='tour-stats'),
-    path('<slug:slug>/', TourDetailView.as_view(), name='tour-detail'),
-    path('<slug:slug>/reviews/', TourReviewsView.as_view(), name='tour-reviews'),
+    path('api/', include(router.urls)),
+    path('api/stats/', views.stats_view, name='stats'),
 ]
