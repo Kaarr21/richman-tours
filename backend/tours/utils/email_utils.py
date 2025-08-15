@@ -67,8 +67,8 @@ def send_booking_confirmation_to_customer(booking):
             <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
                 <h3 style="color: #2c3e50; margin-top: 0;">Booking Details</h3>
                 <p><strong>Booking Reference:</strong> {booking.booking_reference}</p>
-                <p><strong>Tour:</strong> {booking.tour.title}</p>
-                <p><strong>Destination:</strong> {booking.tour.destination}</p>
+                <p><strong>Tour:</strong> {booking.tour_title}</p>
+                <p><strong>Destination:</strong> {booking.tour_destination}</p>
                 <p><strong>Preferred Date:</strong> {booking.preferred_date.strftime('%B %d, %Y')}</p>
                 <p><strong>Number of People:</strong> {booking.number_of_people}</p>
                 <p><strong>Total Amount:</strong> ${booking.total_amount}</p>
@@ -100,8 +100,8 @@ def send_booking_confirmation_to_customer(booking):
     
     Booking Details:
     - Booking Reference: {booking.booking_reference}
-    - Tour: {booking.tour.title}
-    - Destination: {booking.tour.destination}
+    - Tour: {booking.tour_title}
+    - Destination: {booking.tour_destination}
     - Preferred Date: {booking.preferred_date.strftime('%B %d, %Y')}
     - Number of People: {booking.number_of_people}
     - Total Amount: ${booking.total_amount}
@@ -143,8 +143,8 @@ def send_booking_notification_to_admin(booking):
             <div style="background-color: #fff3cd; padding: 20px; border-radius: 5px; margin: 20px 0;">
                 <h3 style="color: #856404; margin-top: 0;">Booking Details</h3>
                 <p><strong>Booking Reference:</strong> {booking.booking_reference}</p>
-                <p><strong>Tour:</strong> {booking.tour.title}</p>
-                <p><strong>Destination:</strong> {booking.tour.destination}</p>
+                <p><strong>Tour:</strong> {booking.tour_title}</p>
+                <p><strong>Destination:</strong> {booking.tour_destination}</p>
                 <p><strong>Preferred Date:</strong> {booking.preferred_date.strftime('%B %d, %Y')}</p>
                 <p><strong>Number of People:</strong> {booking.number_of_people}</p>
                 <p><strong>Total Amount:</strong> ${booking.total_amount}</p>
@@ -176,8 +176,8 @@ def send_booking_notification_to_admin(booking):
     
     Booking Details:
     - Booking Reference: {booking.booking_reference}
-    - Tour: {booking.tour.title}
-    - Destination: {booking.tour.destination}
+    - Tour: {booking.tour_title}
+    - Destination: {booking.tour_destination}
     - Preferred Date: {booking.preferred_date.strftime('%B %d, %Y')}
     - Number of People: {booking.number_of_people}
     - Total Amount: ${booking.total_amount}
@@ -210,8 +210,8 @@ def send_booking_confirmation_final(booking):
             <div style="background-color: #e8f5e8; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #27ae60;">
                 <h3 style="color: #2c3e50; margin-top: 0;">Confirmed Booking Details</h3>
                 <p><strong>Booking Reference:</strong> {booking.booking_reference}</p>
-                <p><strong>Tour:</strong> {booking.tour.title}</p>
-                <p><strong>Destination:</strong> {booking.tour.destination}</p>
+                <p><strong>Tour:</strong> {booking.tour_title}</p>
+                <p><strong>Destination:</strong> {booking.tour_destination}</p>
                 <p><strong>Confirmed Date:</strong> {booking.confirmed_date.strftime('%B %d, %Y') if booking.confirmed_date else booking.preferred_date.strftime('%B %d, %Y')}</p>
                 {f"<p><strong>Time:</strong> {booking.confirmed_time.strftime('%I:%M %p')}</p>" if booking.confirmed_time else ""}
                 <p><strong>Number of People:</strong> {booking.number_of_people}</p>

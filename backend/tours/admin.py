@@ -11,13 +11,13 @@ class TourAdmin(admin.ModelAdmin):
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
     list_display = [
-        'booking_reference', 'name', 'tour', 'preferred_date', 
-        'number_of_people', 'status', 'total_amount', 'created_at'
+        'booking_reference', 'name', 'tour_title', 'preferred_date', 
+        'number_of_people', 'status', 'get_total_amount', 'created_at'
     ]
     list_filter = ['status', 'tour', 'preferred_date', 'created_at']
-    search_fields = ['booking_reference', 'name', 'email', 'tour__title']
+    search_fields = ['booking_reference', 'name', 'email', 'tour__title', 'destination']
     list_editable = ['status']
-    readonly_fields = ['booking_reference', 'total_amount', 'created_at', 'updated_at']
+    readonly_fields = ['booking_reference', 'get_total_amount', 'created_at', 'updated_at']
     
     fieldsets = (
         ('Customer Information', {
@@ -25,9 +25,12 @@ class BookingAdmin(admin.ModelAdmin):
         }),
         ('Booking Details', {
             'fields': (
-                'booking_reference', 'tour', 'preferred_date', 
-                'number_of_people', 'total_amount', 'special_requirements'
+                'booking_reference', 'tour', 'destination', 'preferred_date', 
+                'number_of_people', 'get_total_amount', 'special_requirements'
             )
+        }),
+        ('Pricing', {
+            'fields': ('estimated_price', 'final_price')
         }),
         ('Booking Management', {
             'fields': ('status', 'confirmed_date', 'confirmed_time', 'meeting_point', 'additional_notes')
@@ -37,6 +40,16 @@ class BookingAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         })
     )
+
+    def tour_title(self, obj):
+        """Display tour title or destination"""
+        return obj.tour_title
+    tour_title.short_description = 'Tour/Destination'
+
+    def get_total_amount(self, obj):
+        """Display total amount"""
+        return f"${obj.total_amount}"
+    get_total_amount.short_description = 'Total Amount'
 
 @admin.register(GalleryImage)
 class GalleryImageAdmin(admin.ModelAdmin):

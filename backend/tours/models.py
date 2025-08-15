@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 
 class Tour(models.Model):
     DIFFICULTY_CHOICES = [
@@ -40,8 +41,9 @@ class Booking(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=20)
     
-    # Booking Details
-    destination = models.CharField(max_length=200)  # Changed from tour to destination
+    # Booking Details - Fixed to use ForeignKey to Tour
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='bookings', null=True, blank=True)
+    destination = models.CharField(max_length=200)  # Keep this for custom destinations
     preferred_date = models.DateField()
     number_of_people = models.IntegerField(default=1)
     special_requirements = models.TextField(blank=True)
@@ -62,15 +64,35 @@ class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def total_amount(self):
+        """Calculate total amount based on final_price or estimated_price"""
+        if self.final_price:
+            return self.final_price
+        elif self.estimated_price:
+            return self.estimated_price
+        elif self.tour:
+            return self.tour.price * self.number_of_people
+        return 0
+
+    @property
+    def tour_title(self):
+        """Get tour title or use destination"""
+        return self.tour.title if self.tour else self.destination
+
+    @property
+    def tour_destination(self):
+        """Get tour destination or use destination field"""
+        return self.tour.destination if self.tour else self.destination
+
     def save(self, *args, **kwargs):
         if not self.booking_reference:
-            import uuid
             self.booking_reference = str(uuid.uuid4())[:8].upper()
             
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.name} - {self.destination} ({self.booking_reference})"
+        return f"{self.name} - {self.tour_title} ({self.booking_reference})"
 
     class Meta:
         ordering = ['-created_at']
