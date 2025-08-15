@@ -30,20 +30,18 @@ class ContactSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'email', 'phone', 'subject', 'message', 'created_at']
 
 class BookingSerializer(serializers.ModelSerializer):
-    tour_title = serializers.CharField(source='tour.title', read_only=True)
-    tour_destination = serializers.CharField(source='tour.destination', read_only=True)
     status_display = serializers.CharField(source='get_status_display', read_only=True)
     
     class Meta:
         model = Booking
         fields = [
-            'id', 'name', 'email', 'phone', 'tour', 'tour_title', 'tour_destination',
+            'id', 'name', 'email', 'phone', 'destination',
             'preferred_date', 'number_of_people', 'special_requirements',
-            'status', 'status_display', 'booking_reference', 'total_amount',
+            'status', 'status_display', 'booking_reference', 'estimated_price', 'final_price',
             'confirmed_date', 'confirmed_time', 'meeting_point', 'additional_notes',
             'created_at', 'updated_at'
         ]
-        read_only_fields = ['booking_reference', 'total_amount']
+        read_only_fields = ['booking_reference']
 
 class BookingUpdateSerializer(serializers.ModelSerializer):
     """
@@ -53,6 +51,6 @@ class BookingUpdateSerializer(serializers.ModelSerializer):
         model = Booking
         fields = [
             'status', 'confirmed_date', 'confirmed_time', 
-            'meeting_point', 'additional_notes'
+            'meeting_point', 'additional_notes', 'final_price'
         ]
         

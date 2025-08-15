@@ -41,7 +41,7 @@ class Booking(models.Model):
     phone = models.CharField(max_length=20)
     
     # Booking Details
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='bookings')
+    destination = models.CharField(max_length=200)  # Changed from tour to destination
     preferred_date = models.DateField()
     number_of_people = models.IntegerField(default=1)
     special_requirements = models.TextField(blank=True)
@@ -49,7 +49,8 @@ class Booking(models.Model):
     # Booking Management
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     booking_reference = models.CharField(max_length=20, unique=True, blank=True)
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    estimated_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    final_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     
     # Confirmed booking details
     confirmed_date = models.DateField(blank=True, null=True)
@@ -65,14 +66,11 @@ class Booking(models.Model):
         if not self.booking_reference:
             import uuid
             self.booking_reference = str(uuid.uuid4())[:8].upper()
-        
-        if not self.total_amount:
-            self.total_amount = self.tour.price * self.number_of_people
             
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.name} - {self.tour.title} ({self.booking_reference})"
+        return f"{self.name} - {self.destination} ({self.booking_reference})"
 
     class Meta:
         ordering = ['-created_at']
