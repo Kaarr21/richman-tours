@@ -1,8 +1,4 @@
 from django.db import models
-
-# Create your models here.
-# tours/models.py
-from django.db import models
 from django.contrib.auth.models import User
 
 class Tour(models.Model):
@@ -31,6 +27,7 @@ class Tour(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+
 class GalleryImage(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
@@ -43,6 +40,7 @@ class GalleryImage(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
 
 class Contact(models.Model):
     name = models.CharField(max_length=100)
@@ -59,6 +57,7 @@ class Contact(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+
 class Testimonial(models.Model):
     name = models.CharField(max_length=100)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='testimonials')
@@ -71,4 +70,3 @@ class Testimonial(models.Model):
 
     class Meta:
         ordering = ['-created_at']
-        
