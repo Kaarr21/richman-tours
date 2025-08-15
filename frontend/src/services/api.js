@@ -41,6 +41,67 @@ export const getTour = async (id) => {
   }
 };
 
+// Booking API
+export const submitBooking = async (bookingData) => {
+  try {
+    const response = await api.post('/bookings/', bookingData);
+    return response.data;
+  } catch (error) {
+    console.error('Error submitting booking:', error);
+    throw error;
+  }
+};
+
+export const getBookings = async () => {
+  try {
+    const response = await api.get('/bookings/');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    throw error;
+  }
+};
+
+export const getPendingBookings = async () => {
+  try {
+    const response = await api.get('/bookings/pending/');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching pending bookings:', error);
+    throw error;
+  }
+};
+
+export const getConfirmedBookings = async () => {
+  try {
+    const response = await api.get('/bookings/confirmed/');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching confirmed bookings:', error);
+    throw error;
+  }
+};
+
+export const confirmBooking = async (bookingId, confirmationData) => {
+  try {
+    const response = await api.patch(`/bookings/${bookingId}/confirm/`, confirmationData);
+    return response.data;
+  } catch (error) {
+    console.error('Error confirming booking:', error);
+    throw error;
+  }
+};
+
+export const updateBooking = async (bookingId, updateData) => {
+  try {
+    const response = await api.patch(`/bookings/${bookingId}/`, updateData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating booking:', error);
+    throw error;
+  }
+};
+
 // Gallery API
 export const getGalleryImages = async () => {
   try {

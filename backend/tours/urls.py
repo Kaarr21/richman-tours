@@ -8,6 +8,7 @@ router.register(r'tours', views.TourViewSet)
 router.register(r'gallery', views.GalleryImageViewSet)
 router.register(r'contacts', views.ContactViewSet)
 router.register(r'testimonials', views.TestimonialViewSet)
+router.register(r'bookings', views.BookingViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),

@@ -28,6 +28,56 @@ class Tour(models.Model):
         ordering = ['-created_at']
 
 
+class Booking(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending Review'),
+        ('confirmed', 'Confirmed'),
+        ('cancelled', 'Cancelled'),
+    ]
+    
+    # Customer Details
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    
+    # Booking Details
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='bookings')
+    preferred_date = models.DateField()
+    number_of_people = models.IntegerField(default=1)
+    special_requirements = models.TextField(blank=True)
+    
+    # Booking Management
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    booking_reference = models.CharField(max_length=20, unique=True, blank=True)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    
+    # Confirmed booking details
+    confirmed_date = models.DateField(blank=True, null=True)
+    confirmed_time = models.TimeField(blank=True, null=True)
+    meeting_point = models.TextField(blank=True)
+    additional_notes = models.TextField(blank=True)
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.booking_reference:
+            import uuid
+            self.booking_reference = str(uuid.uuid4())[:8].upper()
+        
+        if not self.total_amount:
+            self.total_amount = self.tour.price * self.number_of_people
+            
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.name} - {self.tour.title} ({self.booking_reference})"
+
+    class Meta:
+        ordering = ['-created_at']
+
+
 class GalleryImage(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
@@ -70,3 +120,4 @@ class Testimonial(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        
