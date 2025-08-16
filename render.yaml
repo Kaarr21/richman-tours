@@ -2,7 +2,7 @@ services:
   - type: web
     name: richman-tours
     env: python
-    plan: free  # Explicitly specify free plan
+    plan: free
     buildCommand: "./build.sh"
     startCommand: "cd backend && gunicorn richman_tours.wsgi:application"
     envVars:
@@ -19,6 +19,6 @@ services:
 
 databases:
   - name: richman-tours-db
-    plan: free  # Explicitly specify free plan
+    plan: free
     databaseName: richman_tours
     user: richman_tours_user
