@@ -1,4 +1,4 @@
-// Enhanced Admin.js with fixed CRUD operations for schedule management
+// Enhanced Admin.js with fixed array initialization and error handling
 import React, { useState, useEffect } from 'react';
 import { 
   getTours, 
@@ -25,6 +25,7 @@ const Admin = () => {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [editingBooking, setEditingBooking] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Form state for booking confirmation
   const [confirmationForm, setConfirmationForm] = useState({
@@ -51,7 +52,10 @@ const Admin = () => {
 
   const fetchData = async () => {
     try {
-      const [statsData, toursData, contactsData, galleryData, pendingData, confirmedData] = await Promise.all([
+      setError(null);
+      
+      // Use Promise.allSettled to handle individual API failures gracefully
+      const results = await Promise.allSettled([
         getStats(),
         getTours(),
         getContacts(),
@@ -59,15 +63,74 @@ const Admin = () => {
         getPendingBookings(),
         getConfirmedBookings()
       ]);
-      
-      setStats(statsData);
-      setTours(toursData);
-      setContacts(contactsData);
-      setGallery(galleryData);
-      setPendingBookings(pendingData);
-      setConfirmedBookings(confirmedData);
+
+      // Handle each result with proper fallbacks
+      const [statsResult, toursResult, contactsResult, galleryResult, pendingResult, confirmedResult] = results;
+
+      // Set stats with fallback
+      if (statsResult.status === 'fulfilled') {
+        setStats(statsResult.value || {});
+      } else {
+        console.error('Error fetching stats:', statsResult.reason);
+        setStats({});
+      }
+
+      // Set tours with fallback to empty array
+      if (toursResult.status === 'fulfilled') {
+        setTours(Array.isArray(toursResult.value) ? toursResult.value : []);
+      } else {
+        console.error('Error fetching tours:', toursResult.reason);
+        setTours([]);
+      }
+
+      // Set contacts with fallback to empty array
+      if (contactsResult.status === 'fulfilled') {
+        setContacts(Array.isArray(contactsResult.value) ? contactsResult.value : []);
+      } else {
+        console.error('Error fetching contacts:', contactsResult.reason);
+        setContacts([]);
+      }
+
+      // Set gallery with fallback to empty array
+      if (galleryResult.status === 'fulfilled') {
+        setGallery(Array.isArray(galleryResult.value) ? galleryResult.value : []);
+      } else {
+        console.error('Error fetching gallery:', galleryResult.reason);
+        setGallery([]);
+      }
+
+      // Set pending bookings with fallback to empty array
+      if (pendingResult.status === 'fulfilled') {
+        setPendingBookings(Array.isArray(pendingResult.value) ? pendingResult.value : []);
+      } else {
+        console.error('Error fetching pending bookings:', pendingResult.reason);
+        setPendingBookings([]);
+      }
+
+      // Set confirmed bookings with fallback to empty array
+      if (confirmedResult.status === 'fulfilled') {
+        setConfirmedBookings(Array.isArray(confirmedResult.value) ? confirmedResult.value : []);
+      } else {
+        console.error('Error fetching confirmed bookings:', confirmedResult.reason);
+        setConfirmedBookings([]);
+      }
+
+      // Check if any critical errors occurred
+      const failedCount = results.filter(result => result.status === 'rejected').length;
+      if (failedCount > 0) {
+        setError(`Warning: ${failedCount} API call(s) failed. Some data may not be available.`);
+      }
+
     } catch (error) {
-      console.error('Error fetching admin data:', error);
+      console.error('Error in fetchData:', error);
+      setError('Failed to load admin data. Please check your connection and try again.');
+      // Ensure all arrays are initialized even on complete failure
+      setStats({});
+      setTours([]);
+      setContacts([]);
+      setGallery([]);
+      setPendingBookings([]);
+      setConfirmedBookings([]);
     } finally {
       setLoading(false);
     }
@@ -90,7 +153,6 @@ const Admin = () => {
     if (!selectedBooking) return;
 
     try {
-      // Use the confirmBooking API function which calls the confirm endpoint
       const result = await confirmBooking(selectedBooking.id, confirmationForm);
       console.log('Booking confirmation result:', result);
       
@@ -207,7 +269,16 @@ const Admin = () => {
   };
 
   if (loading) {
-    return <div className="loading">Loading admin panel...</div>;
+    return (
+      <div className="admin">
+        <div className="container">
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Loading admin panel...</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -216,6 +287,12 @@ const Admin = () => {
         <div className="page-header">
           <h1>Admin Panel</h1>
           <p>Manage bookings, tours, and monitor your business.</p>
+          {error && (
+            <div className="error-banner">
+              <span>⚠️ {error}</span>
+              <button onClick={fetchData} className="retry-btn">Retry</button>
+            </div>
+          )}
         </div>
 
         <div className="admin-tabs">
@@ -427,85 +504,103 @@ const Admin = () => {
           {activeTab === 'tours' && (
             <div className="tours-management">
               <h2>Tours Management</h2>
-              <div className="tours-table">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Title</th>
-                      <th>Destination</th>
-                      <th>Duration</th>
-                      <th>Price</th>
-                      <th>Featured</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tours.map(tour => (
-                      <tr key={tour.id}>
-                        <td>{tour.title}</td>
-                        <td>{tour.destination}</td>
-                        <td>{tour.duration}</td>
-                        <td>${tour.price}</td>
-                        <td>{tour.featured ? '⭐' : '-'}</td>
-                        <td>
-                          <button className="btn-edit">Edit</button>
-                          <button className="btn-delete">Delete</button>
-                        </td>
+              {tours.length > 0 ? (
+                <div className="tours-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Destination</th>
+                        <th>Duration</th>
+                        <th>Price</th>
+                        <th>Featured</th>
+                        <th>Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {tours.map(tour => (
+                        <tr key={tour.id}>
+                          <td>{tour.title}</td>
+                          <td>{tour.destination}</td>
+                          <td>{tour.duration}</td>
+                          <td>${tour.price}</td>
+                          <td>{tour.featured ? '⭐' : '-'}</td>
+                          <td>
+                            <button className="btn-edit">Edit</button>
+                            <button className="btn-delete">Delete</button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div className="no-tours">
+                  <p>No tours available.</p>
+                </div>
+              )}
             </div>
           )}
 
           {activeTab === 'contacts' && (
             <div className="contacts-management">
               <h2>Contact Messages</h2>
-              <div className="contacts-list">
-                {contacts.map(contact => (
-                  <div key={contact.id} className="contact-item">
-                    <div className="contact-header">
-                      <h4>{contact.name}</h4>
-                      <span className="contact-date">
-                        {new Date(contact.created_at).toLocaleDateString()}
-                      </span>
+              {contacts.length > 0 ? (
+                <div className="contacts-list">
+                  {contacts.map(contact => (
+                    <div key={contact.id} className="contact-item">
+                      <div className="contact-header">
+                        <h4>{contact.name}</h4>
+                        <span className="contact-date">
+                          {new Date(contact.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <p><strong>Email:</strong> {contact.email}</p>
+                      <p><strong>Subject:</strong> {contact.subject}</p>
+                      <p><strong>Message:</strong> {contact.message}</p>
                     </div>
-                    <p><strong>Email:</strong> {contact.email}</p>
-                    <p><strong>Subject:</strong> {contact.subject}</p>
-                    <p><strong>Message:</strong> {contact.message}</p>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="no-contacts">
+                  <p>No contact messages.</p>
+                </div>
+              )}
             </div>
           )}
 
           {activeTab === 'gallery' && (
             <div className="gallery-management">
               <h2>Gallery Management</h2>
-              <div className="gallery-grid">
-                {gallery.map(image => (
-                  <div key={image.id} className="gallery-admin-item">
-                    <img 
-                      src={image.image || 'https://via.placeholder.com/200x150?text=Gallery+Image'} 
-                      alt={image.title}
-                      onError={(e) => {
-                        e.target.src = 'https://via.placeholder.com/200x150?text=Gallery+Image';
-                      }}
-                    />
-                    <div className="gallery-admin-info">
-                      <h4>{image.title}</h4>
-                      <p>{image.description}</p>
-                      <button 
-                        className="btn-delete"
-                        onClick={() => handleDeleteGalleryImage(image.id, image.title)}
-                      >
-                        Delete
-                      </button>
+              {gallery.length > 0 ? (
+                <div className="gallery-grid">
+                  {gallery.map(image => (
+                    <div key={image.id} className="gallery-admin-item">
+                      <img 
+                        src={image.image || 'https://via.placeholder.com/200x150?text=Gallery+Image'} 
+                        alt={image.title}
+                        onError={(e) => {
+                          e.target.src = 'https://via.placeholder.com/200x150?text=Gallery+Image';
+                        }}
+                      />
+                      <div className="gallery-admin-info">
+                        <h4>{image.title}</h4>
+                        <p>{image.description}</p>
+                        <button 
+                          className="btn-delete"
+                          onClick={() => handleDeleteGalleryImage(image.id, image.title)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="no-gallery">
+                  <p>No gallery images available.</p>
+                </div>
+              )}
             </div>
           )}
         </div>
