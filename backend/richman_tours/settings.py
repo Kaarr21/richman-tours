@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
@@ -6,8 +7,14 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY', default='your-secret-key-here')
-DEBUG = config('DEBUG', default=True, cast=bool)
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+# Render deployment configuration
+ALLOWED_HOSTS = [
+    'localhost', 
+    '127.0.0.1', 
+    '.onrender.com',  # Allow all Render subdomains
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -22,10 +29,12 @@ INSTALLED_APPS = [
     'accounts',
     'tours',
 ]
+
 AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Serve static files
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -40,7 +49,9 @@ ROOT_URLCONF = 'richman_tours.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'staticfiles', 'react'),  # React build directory
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -53,12 +64,20 @@ TEMPLATES = [
     },
 ]
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Database configuration
+if 'DATABASE_URL' in os.environ:
+    # Production database (Render Postgres)
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    # Development database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -113,45 +132,61 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Security settings for production
+# Security settings
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
-SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+
+# Production security settings
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Session security
-SESSION_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_AGE = 3600  # 1 hour
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-# CSRF settings
-CSRF_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_HTTPONLY = True
 
-# Login rate limiting
-LOGIN_ATTEMPT_LIMIT = 5
-LOGIN_LOCKOUT_TIME = 300  # 5 minutes in seconds
+# CORS settings
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ]
+else:
+    # In production, same origin (no need for CORS)
+    CORS_ALLOW_ALL_ORIGINS = False
 
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
-
-CORS_ALLOW_ALL_ORIGINS = True
-
-# Email Configuration
+# Email Configuration (consider using environment variables for production)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'nancykaroki49@gmail.com'
-EMAIL_HOST_PASSWORD = 'phzl ccoo menu iexd'
-DEFAULT_FROM_EMAIL = 'nancykaroki49@gmail.com'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='nancykaroki49@gmail.com')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='phzl ccoo menu iexd')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='nancykaroki49@gmail.com')
+
+# Static files configuration for Render
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Additional static files directories
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'staticfiles', 'react', 'static'),
+] if os.path.exists(os.path.join(BASE_DIR, 'staticfiles', 'react', 'static')) else []
+
+# Use WhiteNoise for static file serving
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Logging Configuration
 LOGGING = {
@@ -161,31 +196,20 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
         },
-        'file': {
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'django.log',
-        },
     },
     'root': {
         'handlers': ['console'],
         'level': 'INFO',
     },
     'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
         'tours': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
         },
     },
 }
-
-# Create logs directory if it doesn't exist
-os.makedirs(BASE_DIR / 'logs', exist_ok=True)
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

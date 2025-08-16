@@ -1,8 +1,6 @@
-// Enhanced Admin.js with fixed array initialization and error handling
+// Enhanced Admin.js with tours and contacts sections removed
 import React, { useState, useEffect } from 'react';
 import { 
-  getTours, 
-  getContacts, 
   getStats, 
   getGalleryImages, 
   getPendingBookings,
@@ -17,8 +15,6 @@ import '../styles/Admin.css';
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [stats, setStats] = useState({});
-  const [tours, setTours] = useState([]);
-  const [contacts, setContacts] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [pendingBookings, setPendingBookings] = useState([]);
   const [confirmedBookings, setConfirmedBookings] = useState([]);
@@ -57,15 +53,13 @@ const Admin = () => {
       // Use Promise.allSettled to handle individual API failures gracefully
       const results = await Promise.allSettled([
         getStats(),
-        getTours(),
-        getContacts(),
         getGalleryImages(),
         getPendingBookings(),
         getConfirmedBookings()
       ]);
 
       // Handle each result with proper fallbacks
-      const [statsResult, toursResult, contactsResult, galleryResult, pendingResult, confirmedResult] = results;
+      const [statsResult, galleryResult, pendingResult, confirmedResult] = results;
 
       // Set stats with fallback
       if (statsResult.status === 'fulfilled') {
@@ -73,22 +67,6 @@ const Admin = () => {
       } else {
         console.error('Error fetching stats:', statsResult.reason);
         setStats({});
-      }
-
-      // Set tours with fallback to empty array
-      if (toursResult.status === 'fulfilled') {
-        setTours(Array.isArray(toursResult.value) ? toursResult.value : []);
-      } else {
-        console.error('Error fetching tours:', toursResult.reason);
-        setTours([]);
-      }
-
-      // Set contacts with fallback to empty array
-      if (contactsResult.status === 'fulfilled') {
-        setContacts(Array.isArray(contactsResult.value) ? contactsResult.value : []);
-      } else {
-        console.error('Error fetching contacts:', contactsResult.reason);
-        setContacts([]);
       }
 
       // Set gallery with fallback to empty array
@@ -126,8 +104,6 @@ const Admin = () => {
       setError('Failed to load admin data. Please check your connection and try again.');
       // Ensure all arrays are initialized even on complete failure
       setStats({});
-      setTours([]);
-      setContacts([]);
       setGallery([]);
       setPendingBookings([]);
       setConfirmedBookings([]);
@@ -286,7 +262,7 @@ const Admin = () => {
       <div className="container">
         <div className="page-header">
           <h1>Admin Panel</h1>
-          <p>Manage bookings, tours, and monitor your business.</p>
+          <p>Manage bookings, gallery, and monitor your business.</p>
           {error && (
             <div className="error-banner">
               <span>⚠️ {error}</span>
@@ -315,18 +291,6 @@ const Admin = () => {
             🗓️ Schedule
           </button>
           <button 
-            className={activeTab === 'tours' ? 'active' : ''} 
-            onClick={() => setActiveTab('tours')}
-          >
-            🎯 Tours
-          </button>
-          <button 
-            className={activeTab === 'contacts' ? 'active' : ''} 
-            onClick={() => setActiveTab('contacts')}
-          >
-            💬 Contacts
-          </button>
-          <button 
             className={activeTab === 'gallery' ? 'active' : ''} 
             onClick={() => setActiveTab('gallery')}
           >
@@ -351,17 +315,62 @@ const Admin = () => {
                   <h3>Confirmed Bookings</h3>
                   <p className="stat-number">{stats.confirmed_bookings || 0}</p>
                 </div>
-                <div className="stat-card">
-                  <h3>Total Tours</h3>
-                  <p className="stat-number">{stats.total_tours || 0}</p>
+                <div className="stat-card cancelled">
+                  <h3>Cancelled Bookings</h3>
+                  <p className="stat-number">{stats.cancelled_bookings || 0}</p>
                 </div>
-                <div className="stat-card">
-                  <h3>Featured Tours</h3>
-                  <p className="stat-number">{stats.featured_tours || 0}</p>
+                <div className="stat-card revenue">
+                  <h3>Total Revenue</h3>
+                  <p className="stat-number">${stats.total_revenue || 0}</p>
                 </div>
-                <div className="stat-card">
-                  <h3>Total Contacts</h3>
-                  <p className="stat-number">{stats.total_contacts || 0}</p>
+                <div className="stat-card monthly-revenue">
+                  <h3>Monthly Revenue</h3>
+                  <p className="stat-number">${stats.monthly_revenue || 0}</p>
+                </div>
+              </div>
+
+              {/* Quick Actions */}
+              <div className="quick-actions">
+                <h3>Quick Actions</h3>
+                <div className="action-buttons">
+                  <button 
+                    className="action-btn pending" 
+                    onClick={() => setActiveTab('bookings')}
+                  >
+                    View Pending Bookings ({pendingBookings.length})
+                  </button>
+                  <button 
+                    className="action-btn schedule" 
+                    onClick={() => setActiveTab('schedule')}
+                  >
+                    View Today's Schedule
+                  </button>
+                  <button 
+                    className="action-btn gallery" 
+                    onClick={() => setActiveTab('gallery')}
+                  >
+                    Manage Gallery ({gallery.length} images)
+                  </button>
+                </div>
+              </div>
+
+              {/* Recent Activity */}
+              <div className="recent-activity">
+                <h3>Recent Activity</h3>
+                <div className="activity-list">
+                  {pendingBookings.slice(0, 3).map(booking => (
+                    <div key={booking.id} className="activity-item">
+                      <span className="activity-icon">📅</span>
+                      <div className="activity-details">
+                        <p><strong>New booking from {booking.name}</strong></p>
+                        <p>{booking.tour_title} - {formatDate(booking.preferred_date)}</p>
+                        <small>{new Date(booking.created_at).toLocaleDateString()}</small>
+                      </div>
+                    </div>
+                  ))}
+                  {pendingBookings.length === 0 && (
+                    <p className="no-activity">No recent booking activity</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -426,7 +435,11 @@ const Admin = () => {
                 </div>
               ) : (
                 <div className="no-bookings">
-                  <p>No pending booking requests.</p>
+                  <div className="empty-state">
+                    <span className="empty-icon">📅</span>
+                    <h3>No pending booking requests</h3>
+                    <p>All caught up! New bookings will appear here when customers make requests.</p>
+                  </div>
                 </div>
               )}
             </div>
@@ -495,75 +508,11 @@ const Admin = () => {
                 </div>
               ) : (
                 <div className="no-schedule">
-                  <p>No confirmed bookings scheduled.</p>
-                </div>
-              )}
-            </div>
-          )}
-
-          {activeTab === 'tours' && (
-            <div className="tours-management">
-              <h2>Tours Management</h2>
-              {tours.length > 0 ? (
-                <div className="tours-table">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Title</th>
-                        <th>Destination</th>
-                        <th>Duration</th>
-                        <th>Price</th>
-                        <th>Featured</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tours.map(tour => (
-                        <tr key={tour.id}>
-                          <td>{tour.title}</td>
-                          <td>{tour.destination}</td>
-                          <td>{tour.duration}</td>
-                          <td>${tour.price}</td>
-                          <td>{tour.featured ? '⭐' : '-'}</td>
-                          <td>
-                            <button className="btn-edit">Edit</button>
-                            <button className="btn-delete">Delete</button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ) : (
-                <div className="no-tours">
-                  <p>No tours available.</p>
-                </div>
-              )}
-            </div>
-          )}
-
-          {activeTab === 'contacts' && (
-            <div className="contacts-management">
-              <h2>Contact Messages</h2>
-              {contacts.length > 0 ? (
-                <div className="contacts-list">
-                  {contacts.map(contact => (
-                    <div key={contact.id} className="contact-item">
-                      <div className="contact-header">
-                        <h4>{contact.name}</h4>
-                        <span className="contact-date">
-                          {new Date(contact.created_at).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <p><strong>Email:</strong> {contact.email}</p>
-                      <p><strong>Subject:</strong> {contact.subject}</p>
-                      <p><strong>Message:</strong> {contact.message}</p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="no-contacts">
-                  <p>No contact messages.</p>
+                  <div className="empty-state">
+                    <span className="empty-icon">🗓️</span>
+                    <h3>No confirmed bookings scheduled</h3>
+                    <p>Confirmed bookings will appear here with their scheduled dates and times.</p>
+                  </div>
                 </div>
               )}
             </div>
@@ -586,19 +535,25 @@ const Admin = () => {
                       <div className="gallery-admin-info">
                         <h4>{image.title}</h4>
                         <p>{image.description}</p>
-                        <button 
-                          className="btn-delete"
-                          onClick={() => handleDeleteGalleryImage(image.id, image.title)}
-                        >
-                          Delete
-                        </button>
+                        <div className="gallery-admin-actions">
+                          <button 
+                            className="btn-delete"
+                            onClick={() => handleDeleteGalleryImage(image.id, image.title)}
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
                 <div className="no-gallery">
-                  <p>No gallery images available.</p>
+                  <div className="empty-state">
+                    <span className="empty-icon">🖼️</span>
+                    <h3>No gallery images available</h3>
+                    <p>Upload images to showcase your tours and destinations.</p>
+                  </div>
                 </div>
               )}
             </div>
