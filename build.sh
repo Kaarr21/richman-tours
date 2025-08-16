@@ -9,7 +9,8 @@ cd frontend
 # Clean install - removes node_modules and package-lock.json issues
 rm -rf node_modules package-lock.json
 npm install
-npm run build
+# Build with legacy CSS optimization to avoid CSS minifier issues
+GENERATE_SOURCEMAP=false npm run build
 cd ..
 
 # Move React build to Django static directory
