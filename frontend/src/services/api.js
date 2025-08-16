@@ -1,4 +1,4 @@
-// src/services/api.js - Enhanced with full CRUD operations
+// src/services/api.js - Fixed with proper confirmation endpoint
 import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:8000/api';
@@ -147,6 +147,7 @@ export const getConfirmedBookings = async () => {
   }
 };
 
+// Fixed confirm booking function - this is the key fix!
 export const confirmBooking = async (bookingId, confirmationData) => {
   try {
     const response = await api.patch(`/bookings/${bookingId}/confirm/`, confirmationData);

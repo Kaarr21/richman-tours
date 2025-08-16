@@ -1,4 +1,4 @@
-// Enhanced Admin.js with full CRUD operations for schedule management
+// Enhanced Admin.js with fixed CRUD operations for schedule management
 import React, { useState, useEffect } from 'react';
 import { 
   getTours, 
@@ -9,7 +9,8 @@ import {
   getConfirmedBookings,
   confirmBooking,
   updateBooking,
-  deleteBooking
+  deleteBooking,
+  deleteGalleryImage
 } from '../services/api';
 import '../styles/Admin.css';
 
@@ -89,12 +90,23 @@ const Admin = () => {
     if (!selectedBooking) return;
 
     try {
-      await confirmBooking(selectedBooking.id, confirmationForm);
+      // Use the confirmBooking API function which calls the confirm endpoint
+      const result = await confirmBooking(selectedBooking.id, confirmationForm);
+      console.log('Booking confirmation result:', result);
+      
       alert('Booking confirmed successfully! Confirmation email sent to customer.');
       setSelectedBooking(null);
+      setConfirmationForm({
+        confirmed_date: '',
+        confirmed_time: '',
+        meeting_point: '',
+        additional_notes: '',
+        final_price: ''
+      });
       fetchData(); // Refresh data
     } catch (error) {
-      alert('Error confirming booking. Please try again.');
+      console.error('Error confirming booking:', error);
+      alert(`Error confirming booking: ${error.message || 'Please try again.'}`);
     }
   };
 
@@ -116,12 +128,23 @@ const Admin = () => {
     if (!editingBooking) return;
 
     try {
-      await updateBooking(editingBooking.id, editForm);
+      const result = await updateBooking(editingBooking.id, editForm);
+      console.log('Booking update result:', result);
+      
       alert('Booking updated successfully!');
       setEditingBooking(null);
+      setEditForm({
+        confirmed_date: '',
+        confirmed_time: '',
+        meeting_point: '',
+        additional_notes: '',
+        final_price: '',
+        status: ''
+      });
       fetchData(); // Refresh data
     } catch (error) {
-      alert('Error updating booking. Please try again.');
+      console.error('Error updating booking:', error);
+      alert(`Error updating booking: ${error.message || 'Please try again.'}`);
     }
   };
 
@@ -133,7 +156,8 @@ const Admin = () => {
         alert('Booking deleted successfully!');
         fetchData(); // Refresh data
       } catch (error) {
-        alert('Error deleting booking. Please try again.');
+        console.error('Error deleting booking:', error);
+        alert(`Error deleting booking: ${error.message || 'Please try again.'}`);
       }
     }
   };
@@ -145,11 +169,27 @@ const Admin = () => {
       alert('Booking status updated successfully!');
       fetchData(); // Refresh data
     } catch (error) {
-      alert('Error updating booking status. Please try again.');
+      console.error('Error updating booking status:', error);
+      alert(`Error updating booking status: ${error.message || 'Please try again.'}`);
+    }
+  };
+
+  // Gallery Delete Function
+  const handleDeleteGalleryImage = async (imageId, imageTitle) => {
+    if (window.confirm(`Are you sure you want to delete the image "${imageTitle}"? This action cannot be undone.`)) {
+      try {
+        await deleteGalleryImage(imageId);
+        alert('Gallery image deleted successfully!');
+        fetchData(); // Refresh data
+      } catch (error) {
+        console.error('Error deleting gallery image:', error);
+        alert(`Error deleting gallery image: ${error.message || 'Please try again.'}`);
+      }
     }
   };
 
   const formatDate = (dateString) => {
+    if (!dateString) return '';
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -456,7 +496,12 @@ const Admin = () => {
                     <div className="gallery-admin-info">
                       <h4>{image.title}</h4>
                       <p>{image.description}</p>
-                      <button className="btn-delete">Delete</button>
+                      <button 
+                        className="btn-delete"
+                        onClick={() => handleDeleteGalleryImage(image.id, image.title)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 ))}

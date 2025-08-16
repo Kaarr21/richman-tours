@@ -477,7 +477,7 @@ def stats_view(request):
         # Popular destinations
         popular_destinations = (
             Booking.objects
-            .values('tour_destination')
+            .values('destination')
             .annotate(booking_count=Count('id'))
             .order_by('-booking_count')[:5]
         )
@@ -596,4 +596,3 @@ def send_custom_email(request):
     except Exception as e:
         logger.error(f"Error sending custom email: {str(e)}")
         return Response({'error': str(e)}, status=400)
-        
