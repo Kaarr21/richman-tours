@@ -6,7 +6,9 @@ set -o errexit  # exit on error
 # Install Node.js dependencies and build React app
 echo "Building React frontend..."
 cd frontend
-npm ci
+# Clean install - removes node_modules and package-lock.json issues
+rm -rf node_modules package-lock.json
+npm install
 npm run build
 cd ..
 
