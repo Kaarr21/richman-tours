@@ -1,4 +1,4 @@
-// src/pages/Admin.js
+// Enhanced Admin.js with full CRUD operations for schedule management
 import React, { useState, useEffect } from 'react';
 import { 
   getTours, 
@@ -8,7 +8,8 @@ import {
   getPendingBookings,
   getConfirmedBookings,
   confirmBooking,
-  updateBooking
+  updateBooking,
+  deleteBooking
 } from '../services/api';
 import '../styles/Admin.css';
 
@@ -21,6 +22,7 @@ const Admin = () => {
   const [pendingBookings, setPendingBookings] = useState([]);
   const [confirmedBookings, setConfirmedBookings] = useState([]);
   const [selectedBooking, setSelectedBooking] = useState(null);
+  const [editingBooking, setEditingBooking] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // Form state for booking confirmation
@@ -28,7 +30,18 @@ const Admin = () => {
     confirmed_date: '',
     confirmed_time: '',
     meeting_point: '',
-    additional_notes: ''
+    additional_notes: '',
+    final_price: ''
+  });
+
+  // Form state for editing bookings
+  const [editForm, setEditForm] = useState({
+    confirmed_date: '',
+    confirmed_time: '',
+    meeting_point: '',
+    additional_notes: '',
+    final_price: '',
+    status: ''
   });
 
   useEffect(() => {
@@ -59,13 +72,15 @@ const Admin = () => {
     }
   };
 
+  // Booking Confirmation Functions
   const handleBookingSelect = (booking) => {
     setSelectedBooking(booking);
     setConfirmationForm({
       confirmed_date: booking.confirmed_date || booking.preferred_date,
       confirmed_time: booking.confirmed_time || '',
       meeting_point: booking.meeting_point || '',
-      additional_notes: booking.additional_notes || ''
+      additional_notes: booking.additional_notes || '',
+      final_price: booking.final_price || booking.total_amount
     });
   };
 
@@ -80,6 +95,57 @@ const Admin = () => {
       fetchData(); // Refresh data
     } catch (error) {
       alert('Error confirming booking. Please try again.');
+    }
+  };
+
+  // Edit Functions
+  const handleEditBooking = (booking) => {
+    setEditingBooking(booking);
+    setEditForm({
+      confirmed_date: booking.confirmed_date || booking.preferred_date,
+      confirmed_time: booking.confirmed_time || '',
+      meeting_point: booking.meeting_point || '',
+      additional_notes: booking.additional_notes || '',
+      final_price: booking.final_price || booking.total_amount,
+      status: booking.status
+    });
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    if (!editingBooking) return;
+
+    try {
+      await updateBooking(editingBooking.id, editForm);
+      alert('Booking updated successfully!');
+      setEditingBooking(null);
+      fetchData(); // Refresh data
+    } catch (error) {
+      alert('Error updating booking. Please try again.');
+    }
+  };
+
+  // Delete Function
+  const handleDeleteBooking = async (bookingId, bookingReference) => {
+    if (window.confirm(`Are you sure you want to delete booking ${bookingReference}? This action cannot be undone.`)) {
+      try {
+        await deleteBooking(bookingId);
+        alert('Booking deleted successfully!');
+        fetchData(); // Refresh data
+      } catch (error) {
+        alert('Error deleting booking. Please try again.');
+      }
+    }
+  };
+
+  // Status Update Function
+  const handleStatusChange = async (bookingId, newStatus) => {
+    try {
+      await updateBooking(bookingId, { status: newStatus });
+      alert('Booking status updated successfully!');
+      fetchData(); // Refresh data
+    } catch (error) {
+      alert('Error updating booking status. Please try again.');
     }
   };
 
@@ -225,6 +291,18 @@ const Admin = () => {
                         >
                           Confirm Booking
                         </button>
+                        <button 
+                          className="btn-edit" 
+                          onClick={() => handleEditBooking(booking)}
+                        >
+                          Edit
+                        </button>
+                        <button 
+                          className="btn-delete" 
+                          onClick={() => handleDeleteBooking(booking.id, booking.booking_reference)}
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
                   ))}
@@ -259,13 +337,41 @@ const Admin = () => {
                       <div className="schedule-details">
                         <h4>{booking.tour_title}</h4>
                         <p><strong>Customer:</strong> {booking.name} ({booking.email})</p>
+                        <p><strong>Phone:</strong> {booking.phone}</p>
                         <p><strong>People:</strong> {booking.number_of_people} | <strong>Total:</strong> ${booking.total_amount}</p>
+                        <p><strong>Reference:</strong> {booking.booking_reference}</p>
                         {booking.meeting_point && (
                           <p><strong>Meeting Point:</strong> {booking.meeting_point}</p>
                         )}
                         {booking.additional_notes && (
                           <p><strong>Notes:</strong> {booking.additional_notes}</p>
                         )}
+                      </div>
+
+                      <div className="schedule-actions">
+                        <button 
+                          className="btn-edit" 
+                          onClick={() => handleEditBooking(booking)}
+                        >
+                          Edit
+                        </button>
+                        
+                        <select 
+                          value={booking.status} 
+                          onChange={(e) => handleStatusChange(booking.id, e.target.value)}
+                          className="status-select"
+                        >
+                          <option value="confirmed">Confirmed</option>
+                          <option value="cancelled">Cancelled</option>
+                          <option value="pending">Pending</option>
+                        </select>
+                        
+                        <button 
+                          className="btn-delete" 
+                          onClick={() => handleDeleteBooking(booking.id, booking.booking_reference)}
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
                   ))}
@@ -412,6 +518,20 @@ const Admin = () => {
                   </div>
 
                   <div className="form-group">
+                    <label>Final Price</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      value={confirmationForm.final_price}
+                      onChange={(e) => setConfirmationForm({
+                        ...confirmationForm,
+                        final_price: e.target.value
+                      })}
+                      placeholder="Enter final price"
+                    />
+                  </div>
+
+                  <div className="form-group">
                     <label>Meeting Point</label>
                     <input
                       type="text"
@@ -443,6 +563,123 @@ const Admin = () => {
                     </button>
                     <button type="submit" className="btn-confirm">
                       Confirm Booking & Send Email
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Edit Booking Modal */}
+        {editingBooking && (
+          <div className="modal-overlay">
+            <div className="booking-modal">
+              <div className="modal-header">
+                <h3>Edit Booking - {editingBooking.booking_reference}</h3>
+                <button 
+                  className="close-btn"
+                  onClick={() => setEditingBooking(null)}
+                >
+                  ✕
+                </button>
+              </div>
+              
+              <div className="modal-content">
+                <div className="booking-summary">
+                  <h4>Customer Information</h4>
+                  <p><strong>Name:</strong> {editingBooking.name}</p>
+                  <p><strong>Email:</strong> {editingBooking.email}</p>
+                  <p><strong>Phone:</strong> {editingBooking.phone}</p>
+                  <p><strong>Tour:</strong> {editingBooking.tour_title}</p>
+                </div>
+
+                <form onSubmit={handleEditSubmit} className="confirmation-form">
+                  <div className="form-group">
+                    <label>Status</label>
+                    <select
+                      value={editForm.status}
+                      onChange={(e) => setEditForm({
+                        ...editForm,
+                        status: e.target.value
+                      })}
+                      required
+                    >
+                      <option value="pending">Pending</option>
+                      <option value="confirmed">Confirmed</option>
+                      <option value="cancelled">Cancelled</option>
+                    </select>
+                  </div>
+
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>Date</label>
+                      <input
+                        type="date"
+                        value={editForm.confirmed_date}
+                        onChange={(e) => setEditForm({
+                          ...editForm,
+                          confirmed_date: e.target.value
+                        })}
+                      />
+                    </div>
+                    
+                    <div className="form-group">
+                      <label>Time</label>
+                      <input
+                        type="time"
+                        value={editForm.confirmed_time}
+                        onChange={(e) => setEditForm({
+                          ...editForm,
+                          confirmed_time: e.target.value
+                        })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Final Price</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      value={editForm.final_price}
+                      onChange={(e) => setEditForm({
+                        ...editForm,
+                        final_price: e.target.value
+                      })}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Meeting Point</label>
+                    <input
+                      type="text"
+                      value={editForm.meeting_point}
+                      onChange={(e) => setEditForm({
+                        ...editForm,
+                        meeting_point: e.target.value
+                      })}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Additional Notes</label>
+                    <textarea
+                      value={editForm.additional_notes}
+                      onChange={(e) => setEditForm({
+                        ...editForm,
+                        additional_notes: e.target.value
+                      })}
+                      rows="3"
+                    ></textarea>
+                  </div>
+
+                  <div className="modal-actions">
+                    <button type="button" onClick={() => setEditingBooking(null)} className="btn-cancel">
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn-confirm">
+                      Update Booking
                     </button>
                   </div>
                 </form>
