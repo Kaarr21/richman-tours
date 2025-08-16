@@ -1,8 +1,9 @@
-# tours/urls.py - Enhanced with full CRUD endpoints
+# tours/urls.py - Fixed version
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
 
+# Create router for ViewSets
 router = DefaultRouter()
 router.register(r'tours', views.TourViewSet)
 router.register(r'gallery', views.GalleryImageViewSet)
@@ -11,30 +12,30 @@ router.register(r'testimonials', views.TestimonialViewSet)
 router.register(r'bookings', views.BookingViewSet)
 
 urlpatterns = [
-    # API endpoints
-    path('api/', include(router.urls)),
+    # Include router URLs (removes the redundant 'api/' prefix)
+    path('', include(router.urls)),
     
-    # Statistics and analytics
-    path('api/stats/', views.stats_view, name='stats'),
-    path('api/analytics/dashboard/', views.analytics_dashboard, name='analytics_dashboard'),
+    # Custom endpoints
+    path('stats/', views.stats_view, name='stats'),
+    path('analytics/dashboard/', views.analytics_dashboard, name='analytics_dashboard'),
+    path('notifications/send-email/', views.send_custom_email, name='send_custom_email'),
     
-    # Notification endpoints
-    path('api/notifications/send-email/', views.send_custom_email, name='send_custom_email'),
-]
-
-# Additional endpoint patterns for advanced features
-advanced_patterns = [
-    # Bulk operations are handled through ViewSet actions
-    # Individual CRUD operations are handled through standard ViewSet methods
+    # Health check
+    path('health/', views.health_check, name='health_check'),
     
-    # Custom endpoints for specific functionality
-    path('api/bookings/<int:pk>/resend-confirmation/', 
+    # Additional endpoints
+    path('bookings/<int:pk>/resend-confirmation/', 
          views.BookingViewSet.as_view({'post': 'resend_confirmation'}), 
          name='resend_booking_confirmation'),
     
-    path('api/contacts/<int:pk>/mark-as-read/', 
+    path('contacts/<int:pk>/mark-as-read/', 
          views.ContactViewSet.as_view({'patch': 'mark_as_read'}), 
          name='mark_contact_as_read'),
+    
+    # Enhanced admin endpoints
+    path('dashboard/summary/', views.dashboard_summary, name='dashboard_summary'),
+    path('bookings/calendar/', views.booking_calendar_view, name='booking_calendar'),
+    path('bookings/bulk-action/', views.bulk_action_bookings, name='bulk_action_bookings'),
+    path('reports/revenue/', views.revenue_report, name='revenue_report'),
+    path('notifications/bulk-email/', views.send_bulk_email, name='send_bulk_email'),
 ]
-
-urlpatterns.extend(advanced_patterns)

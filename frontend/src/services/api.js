@@ -1,5 +1,4 @@
-
-// frontend/src/services/api.js - Updated to use the auth API instance
+// frontend/src/services/api.js - Updated with complete Gallery CRUD
 import { api } from './authApi';
 
 // Error handling helper
@@ -145,7 +144,7 @@ export const confirmBooking = async (bookingId, confirmationData) => {
   }
 };
 
-// Gallery API - Enhanced with full CRUD
+// Gallery API - Enhanced with full CRUD operations
 export const getGalleryImages = async () => {
   try {
     const response = await api.get('/gallery/');
@@ -155,12 +154,59 @@ export const getGalleryImages = async () => {
   }
 };
 
+export const getGalleryImage = async (id) => {
+  try {
+    const response = await api.get(`/gallery/${id}/`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'fetching gallery image');
+  }
+};
+
+export const createGalleryImage = async (imageData) => {
+  try {
+    const response = await api.post('/gallery/', imageData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'creating gallery image');
+  }
+};
+
+export const updateGalleryImage = async (id, imageData) => {
+  try {
+    const response = await api.patch(`/gallery/${id}/`, imageData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'updating gallery image');
+  }
+};
+
 export const deleteGalleryImage = async (id) => {
   try {
     await api.delete(`/gallery/${id}/`);
     return true;
   } catch (error) {
     handleApiError(error, 'deleting gallery image');
+  }
+};
+
+// Bulk gallery operations
+export const bulkDeleteGalleryImages = async (imageIds) => {
+  try {
+    const response = await api.post('/gallery/bulk_delete/', {
+      image_ids: imageIds
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'bulk deleting gallery images');
   }
 };
 
@@ -201,6 +247,114 @@ export const getStats = async () => {
     return response.data;
   } catch (error) {
     handleApiError(error, 'fetching stats');
+  }
+};
+
+// Advanced Analytics API
+export const getAnalyticsDashboard = async (period = '30d') => {
+  try {
+    const response = await api.get(`/analytics/dashboard/?period=${period}`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'fetching analytics dashboard');
+  }
+};
+
+// Email API
+export const sendCustomEmail = async (emailData) => {
+  try {
+    const response = await api.post('/notifications/send-email/', emailData);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'sending custom email');
+  }
+};
+
+export const sendBulkEmail = async (emailData) => {
+  try {
+    const response = await api.post('/send-bulk-email/', emailData);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'sending bulk email');
+  }
+};
+
+// Export and Reporting API
+export const exportBookings = async (format = 'csv') => {
+  try {
+    const response = await api.get(`/bookings/export/?format=${format}`, {
+      responseType: 'blob'
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'exporting bookings');
+  }
+};
+
+export const getRevenueReport = async (period = 'month') => {
+  try {
+    const response = await api.get(`/revenue-report/?period=${period}`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'fetching revenue report');
+  }
+};
+
+// Calendar API
+export const getBookingCalendar = async (startDate, endDate) => {
+  try {
+    let url = '/booking-calendar/';
+    const params = new URLSearchParams();
+    
+    if (startDate) params.append('start_date', startDate);
+    if (endDate) params.append('end_date', endDate);
+    
+    if (params.toString()) {
+      url += '?' + params.toString();
+    }
+    
+    const response = await api.get(url);
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'fetching booking calendar');
+  }
+};
+
+// Dashboard Summary API
+export const getDashboardSummary = async () => {
+  try {
+    const response = await api.get('/dashboard-summary/');
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'fetching dashboard summary');
+  }
+};
+
+// Health Check API
+export const getHealthCheck = async () => {
+  try {
+    const response = await api.get('/health-check/');
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'health check');
+  }
+};
+
+// File Upload Helper
+export const uploadFile = async (file, type = 'image') => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('type', type);
+    
+    const response = await api.post('/upload/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    handleApiError(error, 'uploading file');
   }
 };
 

@@ -1,4 +1,4 @@
-// src/pages/Home.js
+// src/pages/Home.js - Fixed with proper error handling
 import React, { useState, useEffect } from 'react';
 import TourCard from '../components/TourCard';
 import { getFeaturedTours, getTestimonials } from '../services/api';
@@ -8,18 +8,54 @@ const Home = () => {
   const [featuredTours, setFeaturedTours] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [toursData, testimonialsData] = await Promise.all([
+        setError(null);
+        
+        // Fetch data with individual error handling
+        const fetchPromises = await Promise.allSettled([
           getFeaturedTours(),
           getTestimonials()
         ]);
-        setFeaturedTours(toursData.slice(0, 3)); // Show only 3 featured tours
-        setTestimonials(testimonialsData.slice(0, 3)); // Show only 3 testimonials
+
+        // Handle tours data
+        const [toursResult, testimonialsResult] = fetchPromises;
+
+        if (toursResult.status === 'fulfilled') {
+          const toursData = toursResult.value;
+          // Ensure it's an array before slicing
+          if (Array.isArray(toursData)) {
+            setFeaturedTours(toursData.slice(0, 3));
+          } else {
+            console.warn('Tours data is not an array:', toursData);
+            setFeaturedTours([]);
+          }
+        } else {
+          console.error('Error fetching tours:', toursResult.reason);
+          setFeaturedTours([]);
+        }
+
+        // Handle testimonials data
+        if (testimonialsResult.status === 'fulfilled') {
+          const testimonialsData = testimonialsResult.value;
+          // Ensure it's an array before slicing
+          if (Array.isArray(testimonialsData)) {
+            setTestimonials(testimonialsData.slice(0, 3));
+          } else {
+            console.warn('Testimonials data is not an array:', testimonialsData);
+            setTestimonials([]);
+          }
+        } else {
+          console.error('Error fetching testimonials:', testimonialsResult.reason);
+          setTestimonials([]);
+        }
+
       } catch (error) {
         console.error('Error fetching data:', error);
+        setError('Failed to load page data. Please refresh and try again.');
       } finally {
         setLoading(false);
       }
@@ -29,11 +65,50 @@ const Home = () => {
   }, []);
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return (
+      <div className="home">
+        <div className="container">
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="home">
+        <div className="container">
+          <div className="error-container">
+            <h2>Oops! Something went wrong</h2>
+            <p>{error}</p>
+            <button onClick={() => window.location.reload()} className="retry-btn">
+              Retry
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="home">
+      {/* Hero Section */}
+      <section className="hero">
+        <div className="container">
+          <div className="hero-content">
+            <h1>Discover Amazing Adventures</h1>
+            <p>Join us for unforgettable tours and experiences around the world</p>
+            <div className="hero-actions">
+              <a href="/contact" className="btn-primary">Book Now</a>
+              <a href="/gallery" className="btn-secondary">View Gallery</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Tours Section */}
       <section className="featured-tours">
         <div className="container">
@@ -44,7 +119,10 @@ const Home = () => {
                 <TourCard key={tour.id} tour={tour} />
               ))
             ) : (
-              <p>No featured tours available.</p>
+              <div className="no-tours">
+                <p>No featured tours available at the moment.</p>
+                <a href="/contact" className="contact-link">Contact us to learn about available tours</a>
+              </div>
             )}
           </div>
         </div>
@@ -88,16 +166,19 @@ const Home = () => {
               testimonials.map(testimonial => (
                 <div key={testimonial.id} className="testimonial">
                   <div className="rating">
-                    {'⭐'.repeat(testimonial.rating)}
+                    {'⭐'.repeat(testimonial.rating || 5)}
                   </div>
                   <p>"{testimonial.comment}"</p>
                   <div className="testimonial-author">
                     <strong>{testimonial.name}</strong>
+                    {testimonial.location && <span className="location"> - {testimonial.location}</span>}
                   </div>
                 </div>
               ))
             ) : (
-              <p>No testimonials available.</p>
+              <div className="no-testimonials">
+                <p>Customer reviews will appear here.</p>
+              </div>
             )}
           </div>
         </div>
@@ -108,7 +189,7 @@ const Home = () => {
         <div className="container">
           <h2>Ready for Your Next Adventure?</h2>
           <p>Contact us today to start planning your dream vacation.</p>
-          <button className="cta-btn">Get Started</button>
+          <a href="/contact" className="cta-btn">Get Started</a>
         </div>
       </section>
     </div>

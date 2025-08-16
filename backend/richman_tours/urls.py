@@ -7,11 +7,12 @@ from django.views.static import serve
 import os
 
 urlpatterns = [
+    # Admin and API routes (these must come first)
     path('admin/', admin.site.urls),
     path('api/auth/', include('accounts.urls')),
-    path('api/', include('tours.urls')),  # Prefix API routes with /api/
+    path('api/', include('tours.urls')),  # This includes all your tours API endpoints
     
-    # Serve React static files
+    # Serve static files
     re_path(r'^static/(?P<path>.*)$', serve, {
         'document_root': os.path.join(settings.BASE_DIR, 'staticfiles')
     }),
@@ -28,7 +29,8 @@ else:
         }),
     ]
 
-# Catch-all pattern to serve React app for any non-API routes
+# Catch-all pattern to serve React app ONLY for non-API routes
+# This should be the LAST pattern to avoid intercepting API calls
 urlpatterns += [
-    re_path(r'^.*$', TemplateView.as_view(template_name='index.html'), name='react-app'),
+    re_path(r'^(?!api/).*$', TemplateView.as_view(template_name='index.html'), name='react-app'),
 ]

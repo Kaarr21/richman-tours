@@ -1,4 +1,4 @@
-// Enhanced Admin.js with tours and contacts sections removed
+// Enhanced Admin.js with full CRUD gallery management
 import React, { useState, useEffect } from 'react';
 import { 
   getStats, 
@@ -8,8 +8,11 @@ import {
   confirmBooking,
   updateBooking,
   deleteBooking,
+  createGalleryImage,
+  updateGalleryImage,
   deleteGalleryImage
 } from '../services/api';
+import GalleryManagement from '../components/GalleryManagement';
 import '../styles/Admin.css';
 
 const Admin = () => {
@@ -21,6 +24,7 @@ const Admin = () => {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [editingBooking, setEditingBooking] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [galleryLoading, setGalleryLoading] = useState(false);
   const [error, setError] = useState(null);
 
   // Form state for booking confirmation
@@ -109,6 +113,55 @@ const Admin = () => {
       setConfirmedBookings([]);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Gallery Management Functions
+  const handleAddGalleryImage = async (imageData) => {
+    try {
+      setGalleryLoading(true);
+      const newImage = await createGalleryImage(imageData);
+      setGallery(prevGallery => [newImage, ...prevGallery]);
+      return newImage;
+    } catch (error) {
+      console.error('Error adding gallery image:', error);
+      throw error;
+    } finally {
+      setGalleryLoading(false);
+    }
+  };
+
+  const handleUpdateGalleryImage = async (imageId, imageData) => {
+    try {
+      setGalleryLoading(true);
+      const updatedImage = await updateGalleryImage(imageId, imageData);
+      setGallery(prevGallery => 
+        prevGallery.map(image => 
+          image.id === imageId ? updatedImage : image
+        )
+      );
+      return updatedImage;
+    } catch (error) {
+      console.error('Error updating gallery image:', error);
+      throw error;
+    } finally {
+      setGalleryLoading(false);
+    }
+  };
+
+  const handleDeleteGalleryImage = async (imageId, imageTitle) => {
+    if (window.confirm(`Are you sure you want to delete the image "${imageTitle}"? This action cannot be undone.`)) {
+      try {
+        setGalleryLoading(true);
+        await deleteGalleryImage(imageId);
+        setGallery(prevGallery => prevGallery.filter(image => image.id !== imageId));
+        alert('Gallery image deleted successfully!');
+      } catch (error) {
+        console.error('Error deleting gallery image:', error);
+        alert(`Error deleting gallery image: ${error.message || 'Please try again.'}`);
+      } finally {
+        setGalleryLoading(false);
+      }
     }
   };
 
@@ -209,20 +262,6 @@ const Admin = () => {
     } catch (error) {
       console.error('Error updating booking status:', error);
       alert(`Error updating booking status: ${error.message || 'Please try again.'}`);
-    }
-  };
-
-  // Gallery Delete Function
-  const handleDeleteGalleryImage = async (imageId, imageTitle) => {
-    if (window.confirm(`Are you sure you want to delete the image "${imageTitle}"? This action cannot be undone.`)) {
-      try {
-        await deleteGalleryImage(imageId);
-        alert('Gallery image deleted successfully!');
-        fetchData(); // Refresh data
-      } catch (error) {
-        console.error('Error deleting gallery image:', error);
-        alert(`Error deleting gallery image: ${error.message || 'Please try again.'}`);
-      }
     }
   };
 
@@ -519,44 +558,13 @@ const Admin = () => {
           )}
 
           {activeTab === 'gallery' && (
-            <div className="gallery-management">
-              <h2>Gallery Management</h2>
-              {gallery.length > 0 ? (
-                <div className="gallery-grid">
-                  {gallery.map(image => (
-                    <div key={image.id} className="gallery-admin-item">
-                      <img 
-                        src={image.image || 'https://via.placeholder.com/200x150?text=Gallery+Image'} 
-                        alt={image.title}
-                        onError={(e) => {
-                          e.target.src = 'https://via.placeholder.com/200x150?text=Gallery+Image';
-                        }}
-                      />
-                      <div className="gallery-admin-info">
-                        <h4>{image.title}</h4>
-                        <p>{image.description}</p>
-                        <div className="gallery-admin-actions">
-                          <button 
-                            className="btn-delete"
-                            onClick={() => handleDeleteGalleryImage(image.id, image.title)}
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="no-gallery">
-                  <div className="empty-state">
-                    <span className="empty-icon">🖼️</span>
-                    <h3>No gallery images available</h3>
-                    <p>Upload images to showcase your tours and destinations.</p>
-                  </div>
-                </div>
-              )}
-            </div>
+            <GalleryManagement
+              gallery={gallery}
+              onDeleteImage={handleDeleteGalleryImage}
+              onAddImage={handleAddGalleryImage}
+              onUpdateImage={handleUpdateGalleryImage}
+              loading={galleryLoading}
+            />
           )}
         </div>
 
