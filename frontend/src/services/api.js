@@ -1,25 +1,20 @@
-// frontend/src/services/api.js - Updated with complete Gallery CRUD
-import { api } from './authApi';
+// frontend/src/services/api.js - Updated with proper authentication handling
+import { api, publicApi, apiCall, publicApiCall } from './authApi';
 
 // Error handling helper
 const handleApiError = (error, operation) => {
   console.error(`Error ${operation}:`, error);
-  if (error.response) {
-    console.error('Response data:', error.response.data);
-    console.error('Response status:', error.response.status);
-    throw new Error(error.response.data.detail || error.response.data.message || `Failed to ${operation}`);
-  } else if (error.request) {
-    throw new Error(`Network error while ${operation}`);
-  } else {
-    throw new Error(`Error setting up request for ${operation}`);
-  }
+  throw error; // Re-throw the processed error from apiCall
 };
 
-// Tours API
-export const getTours = async () => {
+// Tours API (Public endpoints)
+export const getTours = async (params = {}) => {
   try {
-    const response = await api.get('/tours/');
-    return response.data;
+    return await publicApiCall({
+      method: 'get',
+      url: '/tours/',
+      params
+    });
   } catch (error) {
     handleApiError(error, 'fetching tours');
   }
@@ -27,8 +22,10 @@ export const getTours = async () => {
 
 export const getFeaturedTours = async () => {
   try {
-    const response = await api.get('/tours/featured/');
-    return response.data;
+    return await publicApiCall({
+      method: 'get',
+      url: '/tours/featured/'
+    });
   } catch (error) {
     handleApiError(error, 'fetching featured tours');
   }
@@ -36,17 +33,23 @@ export const getFeaturedTours = async () => {
 
 export const getTour = async (id) => {
   try {
-    const response = await api.get(`/tours/${id}/`);
-    return response.data;
+    return await publicApiCall({
+      method: 'get',
+      url: `/tours/${id}/`
+    });
   } catch (error) {
     handleApiError(error, 'fetching tour');
   }
 };
 
+// Admin-only tour operations
 export const createTour = async (tourData) => {
   try {
-    const response = await api.post('/tours/', tourData);
-    return response.data;
+    return await apiCall({
+      method: 'post',
+      url: '/tours/',
+      data: tourData
+    });
   } catch (error) {
     handleApiError(error, 'creating tour');
   }
@@ -54,8 +57,11 @@ export const createTour = async (tourData) => {
 
 export const updateTour = async (id, tourData) => {
   try {
-    const response = await api.patch(`/tours/${id}/`, tourData);
-    return response.data;
+    return await apiCall({
+      method: 'patch',
+      url: `/tours/${id}/`,
+      data: tourData
+    });
   } catch (error) {
     handleApiError(error, 'updating tour');
   }
@@ -63,18 +69,38 @@ export const updateTour = async (id, tourData) => {
 
 export const deleteTour = async (id) => {
   try {
-    await api.delete(`/tours/${id}/`);
+    await apiCall({
+      method: 'delete',
+      url: `/tours/${id}/`
+    });
     return true;
   } catch (error) {
     handleApiError(error, 'deleting tour');
   }
 };
 
-// Booking API - Enhanced with full CRUD
-export const getBookings = async () => {
+// Booking API
+export const submitBooking = async (bookingData) => {
   try {
-    const response = await api.get('/bookings/');
-    return response.data;
+    // Public endpoint - no auth required
+    return await publicApiCall({
+      method: 'post',
+      url: '/bookings/',
+      data: bookingData
+    });
+  } catch (error) {
+    handleApiError(error, 'submitting booking');
+  }
+};
+
+// Admin booking operations
+export const getBookings = async (params = {}) => {
+  try {
+    return await apiCall({
+      method: 'get',
+      url: '/bookings/',
+      params
+    });
   } catch (error) {
     handleApiError(error, 'fetching bookings');
   }
@@ -82,27 +108,22 @@ export const getBookings = async () => {
 
 export const getBooking = async (id) => {
   try {
-    const response = await api.get(`/bookings/${id}/`);
-    return response.data;
+    return await apiCall({
+      method: 'get',
+      url: `/bookings/${id}/`
+    });
   } catch (error) {
     handleApiError(error, 'fetching booking');
   }
 };
 
-export const submitBooking = async (bookingData) => {
-  try {
-    // For booking submission, we don't need auth (public endpoint)
-    const response = await api.post('/bookings/', bookingData);
-    return response.data;
-  } catch (error) {
-    handleApiError(error, 'submitting booking');
-  }
-};
-
 export const updateBooking = async (bookingId, updateData) => {
   try {
-    const response = await api.patch(`/bookings/${bookingId}/`, updateData);
-    return response.data;
+    return await apiCall({
+      method: 'patch',
+      url: `/bookings/${bookingId}/`,
+      data: updateData
+    });
   } catch (error) {
     handleApiError(error, 'updating booking');
   }
@@ -110,7 +131,10 @@ export const updateBooking = async (bookingId, updateData) => {
 
 export const deleteBooking = async (bookingId) => {
   try {
-    await api.delete(`/bookings/${bookingId}/`);
+    await apiCall({
+      method: 'delete',
+      url: `/bookings/${bookingId}/`
+    });
     return true;
   } catch (error) {
     handleApiError(error, 'deleting booking');
@@ -119,8 +143,10 @@ export const deleteBooking = async (bookingId) => {
 
 export const getPendingBookings = async () => {
   try {
-    const response = await api.get('/bookings/pending/');
-    return response.data;
+    return await apiCall({
+      method: 'get',
+      url: '/bookings/pending/'
+    });
   } catch (error) {
     handleApiError(error, 'fetching pending bookings');
   }
@@ -128,8 +154,10 @@ export const getPendingBookings = async () => {
 
 export const getConfirmedBookings = async () => {
   try {
-    const response = await api.get('/bookings/confirmed/');
-    return response.data;
+    return await apiCall({
+      method: 'get',
+      url: '/bookings/confirmed/'
+    });
   } catch (error) {
     handleApiError(error, 'fetching confirmed bookings');
   }
@@ -137,18 +165,25 @@ export const getConfirmedBookings = async () => {
 
 export const confirmBooking = async (bookingId, confirmationData) => {
   try {
-    const response = await api.patch(`/bookings/${bookingId}/confirm/`, confirmationData);
-    return response.data;
+    return await apiCall({
+      method: 'patch',
+      url: `/bookings/${bookingId}/confirm/`,
+      data: confirmationData
+    });
   } catch (error) {
     handleApiError(error, 'confirming booking');
   }
 };
 
-// Gallery API - Enhanced with full CRUD operations
-export const getGalleryImages = async () => {
+// Gallery API
+export const getGalleryImages = async (params = {}) => {
   try {
-    const response = await api.get('/gallery/');
-    return response.data;
+    // Public endpoint
+    return await publicApiCall({
+      method: 'get',
+      url: '/gallery/',
+      params
+    });
   } catch (error) {
     handleApiError(error, 'fetching gallery images');
   }
@@ -156,21 +191,26 @@ export const getGalleryImages = async () => {
 
 export const getGalleryImage = async (id) => {
   try {
-    const response = await api.get(`/gallery/${id}/`);
-    return response.data;
+    return await publicApiCall({
+      method: 'get',
+      url: `/gallery/${id}/`
+    });
   } catch (error) {
     handleApiError(error, 'fetching gallery image');
   }
 };
 
+// Admin gallery operations
 export const createGalleryImage = async (imageData) => {
   try {
-    const response = await api.post('/gallery/', imageData, {
+    return await apiCall({
+      method: 'post',
+      url: '/gallery/',
+      data: imageData,
       headers: {
         'Content-Type': 'multipart/form-data',
-      },
+      }
     });
-    return response.data;
   } catch (error) {
     handleApiError(error, 'creating gallery image');
   }
@@ -178,12 +218,14 @@ export const createGalleryImage = async (imageData) => {
 
 export const updateGalleryImage = async (id, imageData) => {
   try {
-    const response = await api.patch(`/gallery/${id}/`, imageData, {
+    return await apiCall({
+      method: 'patch',
+      url: `/gallery/${id}/`,
+      data: imageData,
       headers: {
         'Content-Type': 'multipart/form-data',
-      },
+      }
     });
-    return response.data;
   } catch (error) {
     handleApiError(error, 'updating gallery image');
   }
@@ -191,80 +233,111 @@ export const updateGalleryImage = async (id, imageData) => {
 
 export const deleteGalleryImage = async (id) => {
   try {
-    await api.delete(`/gallery/${id}/`);
+    await apiCall({
+      method: 'delete',
+      url: `/gallery/${id}/`
+    });
     return true;
   } catch (error) {
     handleApiError(error, 'deleting gallery image');
   }
 };
 
-// Bulk gallery operations
-export const bulkDeleteGalleryImages = async (imageIds) => {
-  try {
-    const response = await api.post('/gallery/bulk_delete/', {
-      image_ids: imageIds
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError(error, 'bulk deleting gallery images');
-  }
-};
-
-// Contact API - Enhanced with full CRUD
-export const getContacts = async () => {
-  try {
-    const response = await api.get('/contacts/');
-    return response.data;
-  } catch (error) {
-    handleApiError(error, 'fetching contacts');
-  }
-};
-
+// Contact API
 export const submitContact = async (contactData) => {
   try {
-    // For contact submission, we don't need auth (public endpoint)
-    const response = await api.post('/contacts/', contactData);
-    return response.data;
+    // Public endpoint
+    return await publicApiCall({
+      method: 'post',
+      url: '/contacts/',
+      data: contactData
+    });
   } catch (error) {
     handleApiError(error, 'submitting contact');
   }
 };
 
-// Testimonials API
-export const getTestimonials = async () => {
+export const getContacts = async (params = {}) => {
   try {
-    const response = await api.get('/testimonials/');
-    return response.data;
+    return await apiCall({
+      method: 'get',
+      url: '/contacts/',
+      params
+    });
+  } catch (error) {
+    handleApiError(error, 'fetching contacts');
+  }
+};
+
+// Testimonials API
+export const getTestimonials = async (params = {}) => {
+  try {
+    // Public endpoint
+    return await publicApiCall({
+      method: 'get',
+      url: '/testimonials/',
+      params
+    });
   } catch (error) {
     handleApiError(error, 'fetching testimonials');
   }
 };
 
-// Stats API
+export const createTestimonial = async (testimonialData) => {
+  try {
+    return await apiCall({
+      method: 'post',
+      url: '/testimonials/',
+      data: testimonialData
+    });
+  } catch (error) {
+    handleApiError(error, 'creating testimonial');
+  }
+};
+
+// Admin Statistics and Analytics (Admin only)
 export const getStats = async () => {
   try {
-    const response = await api.get('/stats/');
-    return response.data;
+    return await apiCall({
+      method: 'get',
+      url: '/stats/'
+    });
   } catch (error) {
     handleApiError(error, 'fetching stats');
   }
 };
 
-// Advanced Analytics API
 export const getAnalyticsDashboard = async (period = '30d') => {
   try {
-    const response = await api.get(`/analytics/dashboard/?period=${period}`);
-    return response.data;
+    return await apiCall({
+      method: 'get',
+      url: '/analytics/dashboard/',
+      params: { period }
+    });
   } catch (error) {
     handleApiError(error, 'fetching analytics dashboard');
   }
 };
 
-// Email API
+export const getDashboardSummary = async () => {
+  try {
+    return await apiCall({
+      method: 'get',
+      url: '/dashboard/summary/'
+    });
+  } catch (error) {
+    handleApiError(error, 'fetching dashboard summary');
+  }
+};
+
+// Email API (Admin only)
 export const sendCustomEmail = async (emailData) => {
   try {
-    const response = await api.post('/notifications/send-email/', emailData);
-    return response.data;
+    return await apiCall({
+      method: 'post',
+      url: '/notifications/send-email/',
+      data: emailData
+    });
   } catch (error) {
     handleApiError(error, 'sending custom email');
   }
@@ -272,20 +345,25 @@ export const sendCustomEmail = async (emailData) => {
 
 export const sendBulkEmail = async (emailData) => {
   try {
-    const response = await api.post('/send-bulk-email/', emailData);
-    return response.data;
+    return await apiCall({
+      method: 'post',
+      url: '/notifications/bulk-email/',
+      data: emailData
+    });
   } catch (error) {
     handleApiError(error, 'sending bulk email');
   }
 };
 
-// Export and Reporting API
+// Export and Reporting (Admin only)
 export const exportBookings = async (format = 'csv') => {
   try {
-    const response = await api.get(`/bookings/export/?format=${format}`, {
+    return await apiCall({
+      method: 'get',
+      url: '/bookings/export/',
+      params: { format },
       responseType: 'blob'
     });
-    return response.data;
   } catch (error) {
     handleApiError(error, 'exporting bookings');
   }
@@ -293,68 +371,88 @@ export const exportBookings = async (format = 'csv') => {
 
 export const getRevenueReport = async (period = 'month') => {
   try {
-    const response = await api.get(`/revenue-report/?period=${period}`);
-    return response.data;
+    return await apiCall({
+      method: 'get',
+      url: '/reports/revenue/',
+      params: { period }
+    });
   } catch (error) {
     handleApiError(error, 'fetching revenue report');
   }
 };
 
-// Calendar API
+// Calendar API (Admin only)
 export const getBookingCalendar = async (startDate, endDate) => {
   try {
-    let url = '/booking-calendar/';
-    const params = new URLSearchParams();
+    const params = {};
+    if (startDate) params.start_date = startDate;
+    if (endDate) params.end_date = endDate;
     
-    if (startDate) params.append('start_date', startDate);
-    if (endDate) params.append('end_date', endDate);
-    
-    if (params.toString()) {
-      url += '?' + params.toString();
-    }
-    
-    const response = await api.get(url);
-    return response.data;
+    return await apiCall({
+      method: 'get',
+      url: '/bookings/calendar/',
+      params
+    });
   } catch (error) {
     handleApiError(error, 'fetching booking calendar');
   }
 };
 
-// Dashboard Summary API
-export const getDashboardSummary = async () => {
-  try {
-    const response = await api.get('/dashboard-summary/');
-    return response.data;
-  } catch (error) {
-    handleApiError(error, 'fetching dashboard summary');
-  }
-};
-
-// Health Check API
+// Health Check (Public)
 export const getHealthCheck = async () => {
   try {
-    const response = await api.get('/health-check/');
-    return response.data;
+    return await publicApiCall({
+      method: 'get',
+      url: '/health/'
+    });
   } catch (error) {
     handleApiError(error, 'health check');
   }
 };
 
-// File Upload Helper
-export const uploadFile = async (file, type = 'image') => {
+// Bulk operations (Admin only)
+export const bulkActionBookings = async (action, bookingIds, updateData = {}) => {
   try {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('type', type);
-    
-    const response = await api.post('/upload/', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+    return await apiCall({
+      method: 'post',
+      url: '/bookings/bulk-action/',
+      data: {
+        action,
+        booking_ids: bookingIds,
+        update_data: updateData
+      }
     });
-    return response.data;
   } catch (error) {
-    handleApiError(error, 'uploading file');
+    handleApiError(error, 'performing bulk booking action');
+  }
+};
+
+export const bulkUpdateTours = async (tourIds, updateData) => {
+  try {
+    return await apiCall({
+      method: 'post',
+      url: '/tours/bulk_update/',
+      data: {
+        tour_ids: tourIds,
+        update_data: updateData
+      }
+    });
+  } catch (error) {
+    handleApiError(error, 'bulk updating tours');
+  }
+};
+
+export const bulkDeleteTours = async (tourIds) => {
+  try {
+    return await apiCall({
+      method: 'post',
+      url: '/tours/bulk_delete/',
+      data: {
+        tour_ids: tourIds
+      }
+    });
+  } catch (error) {
+    handleApiError(error, 'bulk deleting tours');
   }
 };
 

@@ -1,21 +1,26 @@
-# backend/authentication/urls.py
+# backend/accounts/urls.py - Authentication URLs
 from django.urls import path
-from rest_framework_simplejwt.views import TokenVerifyView
-from .views import (
-    CustomTokenObtainPairView,
-    CustomTokenRefreshView,
-    logout_view,
-    profile_view,
-    change_password_view,
-    security_logs_view
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenBlacklistView,
 )
+from . import views
 
 urlpatterns = [
-    path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
-    path('verify/', TokenVerifyView.as_view(), name='token_verify'),
-    path('logout/', logout_view, name='logout'),
-    path('profile/', profile_view, name='profile'),
-    path('change-password/', change_password_view, name='change_password'),
-    path('security-logs/', security_logs_view, name='security_logs'),
+    # JWT Authentication
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('logout/', TokenBlacklistView.as_view(), name='token_blacklist'),
+    
+    # User Profile
+    path('profile/', views.UserProfileView.as_view(), name='user_profile'),
+    path('change-password/', views.ChangePasswordView.as_view(), name='change_password'),
+    
+    # Admin user management
+    path('users/', views.UserListView.as_view(), name='user_list'),
+    path('users/<int:pk>/', views.UserDetailView.as_view(), name='user_detail'),
+    
+    # Security
+    path('security-logs/', views.SecurityLogsView.as_view(), name='security_logs'),
 ]
