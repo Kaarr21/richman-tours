@@ -1,4 +1,4 @@
-// frontend/src/services/api.js - Updated with proper authentication handling
+// frontend/src/services/api.js - Complete API service with all exports
 import { apiCall, publicApiCall } from './authApi';
 
 // Error handling helper
@@ -455,3 +455,18 @@ export const bulkDeleteTours = async (tourIds) => {
     handleApiError(error, 'bulk deleting tours');
   }
 };
+
+// Re-export auth functions for convenience
+export { 
+  loginUser, 
+  logoutUser, 
+  refreshToken, 
+  getCurrentUser, 
+  changePassword, 
+  updateUserProfile,
+  verifyToken,
+  TokenManager,
+  api,
+  apiCall,
+  publicApiCall
+} from './authApi';

@@ -1,4 +1,4 @@
-// frontend/src/services/authApi.js - Enhanced version
+// frontend/src/services/authApi.js - Fixed version with proper public API handling
 import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
@@ -11,8 +11,16 @@ const authApi = axios.create({
   },
 });
 
-// Create axios instance for general API calls
+// Create axios instance for authenticated API calls
 const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Create axios instance for public API calls (no auth required)
+const publicApi = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
@@ -55,7 +63,7 @@ const addRefreshSubscriber = (callback) => {
   refreshSubscribers.push(callback);
 };
 
-// Request interceptor to add auth token
+// Request interceptor ONLY for authenticated API calls
 api.interceptors.request.use(
   (config) => {
     const token = TokenManager.getAccessToken();
@@ -67,7 +75,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor for token refresh
+// Response interceptor ONLY for authenticated API calls
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -173,15 +181,41 @@ export const getCurrentUser = async () => {
   }
 };
 
-// Public API wrapper for unauthenticated requests
-export const publicApi = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+export const changePassword = async (currentPassword, newPassword, confirmPassword) => {
+  try {
+    const response = await api.post('/auth/change-password/', {
+      current_password: currentPassword,
+      new_password: newPassword,
+      confirm_password: confirmPassword
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Change password error:', error);
+    throw error;
+  }
+};
 
-// Enhanced API wrapper with better error handling
+export const updateUserProfile = async (profileData) => {
+  try {
+    const response = await api.patch('/auth/profile/', profileData);
+    return response.data;
+  } catch (error) {
+    console.error('Update profile error:', error);
+    throw error;
+  }
+};
+
+export const verifyToken = async (token) => {
+  try {
+    const response = await authApi.post('/verify/', { token });
+    return response.data;
+  } catch (error) {
+    console.error('Verify token error:', error);
+    throw error;
+  }
+};
+
+// Enhanced API wrapper for authenticated requests
 export const apiCall = async (config) => {
   try {
     const response = await api(config);
@@ -206,10 +240,12 @@ export const apiCall = async (config) => {
   }
 };
 
-// Public API wrapper for unauthenticated calls
+// Public API wrapper for unauthenticated calls - NO AUTH INTERCEPTORS
 export const publicApiCall = async (config) => {
   try {
+    console.log(`Making public API call: ${config.method?.toUpperCase()} ${config.url}`);
     const response = await publicApi(config);
+    console.log(`Public API call successful: ${config.method?.toUpperCase()} ${config.url}`, response.status);
     return response.data;
   } catch (error) {
     console.error(`Public API call failed [${config.method?.toUpperCase()} ${config.url}]:`, error);
@@ -228,4 +264,4 @@ export const publicApiCall = async (config) => {
   }
 };
 
-export { api, TokenManager };
+export { api, publicApi, TokenManager };

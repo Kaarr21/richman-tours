@@ -1,0 +1,242 @@
+/* frontend/src/styles/TestimonialCard.css */
+
+.testimonial-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #4ECDC4, #45B7D1);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.testimonial-avatar .avatar-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.testimonial-info {
+  flex: 1;
+}
+
+.testimonial-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.testimonial-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.testimonial-rating .star {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.testimonial-rating .star.full {
+  color: #ffd700;
+}
+
+.testimonial-rating .star.half {
+  color: #ffd700;
+  opacity: 0.7;
+}
+
+.testimonial-rating .star.empty {
+  color: #e0e0e0;
+}
+
+.rating-number {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.testimonial-date {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.testimonial-content {
+  position: relative;
+}
+
+.quote-mark {
+  position: absolute;
+  top: -10px;
+  left: -5px;
+  font-size: 4rem;
+  color: #4ECDC4;
+  opacity: 0.2;
+  font-family: Georgia, serif;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.testimonial-comment {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin: 0 0 1rem 0;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-tour {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 1rem;
+}
+
+.tour-label {
+  font-size: 0.9rem;
+  color: #888;
+  font-weight: 500;
+}
+
+.tour-name {
+  font-size: 0.9rem;
+  color: #4ECDC4;
+  font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+  
+  .testimonial-header {
+    margin-bottom: 1rem;
+  }
+  
+  .testimonial-avatar .avatar-circle {
+    width: 50px;
+    height: 50px;
+    font-size: 1rem;
+  }
+  
+  .testimonial-name {
+    font-size: 1.1rem;
+  }
+  
+  .quote-mark {
+    font-size: 3rem;
+    top: -5px;
+  }
+}
+
+/* Animation for testimonials grid */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+@media (max-width: 480px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .testimonial-card {
+    padding: 1.25rem;
+  }
+}
+
+/* Loading state for testimonials */
+.testimonial-skeleton {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 2rem;
+  animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.testimonial-skeleton .skeleton-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-skeleton .skeleton-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #e9ecef;
+}
+
+.testimonial-skeleton .skeleton-info {
+  flex: 1;
+}
+
+.testimonial-skeleton .skeleton-name {
+  height: 1.2rem;
+  background: #e9ecef;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  width: 60%;
+}
+
+.testimonial-skeleton .skeleton-rating {
+  height: 1rem;
+  background: #e9ecef;
+  border-radius: 4px;
+  width: 40%;
+}
+
+.testimonial-skeleton .skeleton-comment {
+  height: 4rem;
+  background: #e9ecef;
+  border-radius: 4px;
+}
