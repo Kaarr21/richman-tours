@@ -1,94 +1,111 @@
-
-// frontend/src/components/Login.js
-import React, { useState } from 'react';
+// frontend/src/components/Login.js - Fixed version
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Navigate, useLocation } from 'react-router-dom';
 import '../styles/Login.css';
 
 const Login = () => {
-  const { login, isAuthenticated, loading, error } = useAuth();
-  const location = useLocation();
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  });
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login, error, isAuthenticated, isAdmin, setError } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // Redirect if already authenticated
-  if (isAuthenticated()) {
-    const from = location.state?.from?.pathname || '/admin';
+  // Get the intended destination from location state
+  const from = location.state?.from?.pathname || '/admin';
+
+  // Clear any previous errors when component mounts
+  useEffect(() => {
+    setError(null);
+  }, [setError]);
+
+  // Redirect if already authenticated and is admin
+  if (isAuthenticated() && isAdmin()) {
     return <Navigate to={from} replace />;
   }
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!formData.username.trim() || !formData.password.trim()) {
+    if (!username.trim() || !password.trim()) {
+      setError('Please enter both username and password');
       return;
     }
 
-    setIsSubmitting(true);
+    setLoading(true);
     
     try {
-      const result = await login(formData.username, formData.password);
+      const result = await login(username.trim(), password);
       
       if (result.success) {
-        // Redirect will happen automatically via Navigate component
-        const from = location.state?.from?.pathname || '/admin';
-        window.location.href = from;
+        // Check if user is admin after successful login
+        if (isAdmin()) {
+          navigate(from, { replace: true });
+        } else {
+          setError('Access denied. Admin privileges required.');
+          // Clear tokens for non-admin users
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+        }
+      } else {
+        // Error is already set by the login function
+        console.error('Login failed:', result.error);
       }
-    } catch (error) {
-      console.error('Login error:', error);
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('An unexpected error occurred. Please try again.');
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
+    }
+  };
+
+  const handleInputChange = (setter) => (e) => {
+    setter(e.target.value);
+    // Clear error when user starts typing
+    if (error) {
+      setError(null);
     }
   };
 
   return (
-    <div className="login-page">
+    <div className="login">
       <div className="login-container">
         <div className="login-header">
           <div className="logo">
             <h1>Richman Tours</h1>
-            <span>Admin Panel</span>
+            <p>Admin Panel</p>
           </div>
         </div>
 
-        <div className="login-form-container">
-          <form onSubmit={handleSubmit} className="login-form">
-            <h2>Sign In</h2>
-            <p>Enter your credentials to access the admin panel</p>
+        <div className="login-card">
+          <div className="card-header">
+            <h2>Admin Login</h2>
+            <p>Sign in to access the admin dashboard</p>
+          </div>
 
+          <form onSubmit={handleSubmit} className="login-form">
             {error && (
               <div className="error-message">
-                <i className="error-icon">⚠️</i>
-                {error}
+                <span className="error-icon">⚠️</span>
+                <span>{error}</span>
               </div>
             )}
 
             <div className="form-group">
               <label htmlFor="username">Username</label>
               <div className="input-container">
-                <i className="input-icon">👤</i>
+                <span className="input-icon">👤</span>
                 <input
-                  type="text"
                   id="username"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleInputChange}
+                  type="text"
+                  value={username}
+                  onChange={handleInputChange(setUsername)}
                   placeholder="Enter your username"
-                  required
-                  disabled={isSubmitting}
+                  disabled={loading}
                   autoComplete="username"
+                  required
                 />
               </div>
             </div>
@@ -96,38 +113,38 @@ const Login = () => {
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <div className="input-container">
-                <i className="input-icon">🔒</i>
+                <span className="input-icon">🔒</span>
                 <input
-                  type={showPassword ? 'text' : 'password'}
                   id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={handleInputChange(setPassword)}
                   placeholder="Enter your password"
-                  required
-                  disabled={isSubmitting}
+                  disabled={loading}
                   autoComplete="current-password"
+                  required
                 />
                 <button
                   type="button"
                   className="password-toggle"
                   onClick={() => setShowPassword(!showPassword)}
-                  disabled={isSubmitting}
+                  disabled={loading}
+                  tabIndex={-1}
                 >
-                  {showPassword ? '🙈' : '👁️'}
+                  {showPassword ? '👁️' : '👁️‍🗨️'}
                 </button>
               </div>
             </div>
 
-            <button
-              type="submit"
-              className={`login-btn ${isSubmitting ? 'loading' : ''}`}
-              disabled={isSubmitting || loading}
+            <button 
+              type="submit" 
+              className="login-button"
+              disabled={loading || !username.trim() || !password.trim()}
             >
-              {isSubmitting ? (
+              {loading ? (
                 <>
-                  <span className="spinner"></span>
-                  Signing In...
+                  <span className="loading-spinner"></span>
+                  Signing in...
                 </>
               ) : (
                 'Sign In'
@@ -136,10 +153,28 @@ const Login = () => {
           </form>
 
           <div className="login-footer">
-            <div className="security-info">
-              <i className="security-icon">🛡️</i>
-              <span>Secure admin access</span>
+            <p>
+              <a href="/" className="back-link">
+                ← Back to Website
+              </a>
+            </p>
+            
+            <div className="security-notice">
+              <small>
+                🔐 This is a secure admin area. All activities are logged for security purposes.
+              </small>
             </div>
+          </div>
+        </div>
+
+        <div className="login-help">
+          <div className="help-section">
+            <h4>Need Help?</h4>
+            <ul>
+              <li>Make sure you have admin privileges</li>
+              <li>Check your username and password</li>
+              <li>Contact system administrator if issues persist</li>
+            </ul>
           </div>
         </div>
       </div>

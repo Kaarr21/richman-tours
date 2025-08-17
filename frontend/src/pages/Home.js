@@ -1,4 +1,4 @@
-// frontend/src/pages/Home.js - Fixed version with proper error handling
+// frontend/src/pages/Home.js - Fixed version with proper error handling and export
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getFeaturedTours, getTestimonials } from '../services/api';
@@ -79,8 +79,6 @@ const Home = () => {
       setLoading(false);
     }
   };
-
-export default Home;
 
   if (loading) {
     return (
@@ -297,3 +295,5 @@ export default Home;
     </div>
   );
 };
+
+export default Home;

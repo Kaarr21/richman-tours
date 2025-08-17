@@ -1,5 +1,5 @@
 // frontend/src/services/api.js - Updated with proper authentication handling
-import { api, publicApi, apiCall, publicApiCall } from './authApi';
+import { apiCall, publicApiCall } from './authApi';
 
 // Error handling helper
 const handleApiError = (error, operation) => {
@@ -455,5 +455,3 @@ export const bulkDeleteTours = async (tourIds) => {
     handleApiError(error, 'bulk deleting tours');
   }
 };
-
-export default api;

@@ -1,15 +1,14 @@
-# backend/accounts/urls.py - Authentication URLs
+# backend/accounts/urls.py - Authentication URLs with proper imports
 from django.urls import path
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
     TokenBlacklistView,
 )
 from . import views
 
 urlpatterns = [
-    # JWT Authentication
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # JWT Authentication - using custom view instead of default
+    path('login/', views.CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('logout/', TokenBlacklistView.as_view(), name='token_blacklist'),
     

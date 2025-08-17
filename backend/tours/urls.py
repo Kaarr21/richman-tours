@@ -1,4 +1,4 @@
-# tours/urls.py - Fixed version
+# tours/urls.py - Fixed version with unused import removed
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
